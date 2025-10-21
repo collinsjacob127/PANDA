@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(PandaLdr VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE Release)
 
 find_package(Qt6 REQUIRED COMPONENTS 
     Quick 
@@ -244,7 +245,6 @@ add_custom_command(
 )
 
 add_custom_target(copy_dll ALL DEPENDS ${DEST_DLL})
-
 
 
 # Set up unit tests

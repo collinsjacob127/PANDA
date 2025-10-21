@@ -5,6 +5,9 @@
 #include <QJSValue>
 #include <QQmlContext>
 #include <QQmlEngine>
+// error logging
+#include <QDebug>
+#include <QDir>
 
 // Project
 #include "PModUIController.h"
@@ -24,11 +27,39 @@ int main(int argc, char *argv[])
     // qmlRegisterSingletonInstance("PandaLdr", 1, 0, "PAppController", p_state);
 
     // Register the PModUIController singleton
+
+    // print log to file
+    QFile logFile(QDir::homePath() + "/.panda/log.txt");
+    if (logFile.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&logFile);
+        out << "PandaLdr started\n";
+    }
+    qInstallMessageHandler([](QtMsgType type, const QMessageLogContext &context, const QString &msg) {
+        QFile logFile(QDir::homePath() + "/.panda/log.txt");
+        if (logFile.open(QIODevice::Append | QIODevice::Text)) {
+            QTextStream out(&logFile);
+            out << msg << "\n";
+        }
+    });
+
+    // --------------------- CREATE CORE OBJECTS ---------------------
     QSharedPointer<PLauncher> launcher = QSharedPointer<PLauncher>::create();
     QSharedPointer<PDatabase> pandaDb = QSharedPointer<PDatabase>::create(QDir::homePath() + "/.panda", "ModsDb",
                                                                           QStringList{PQueries::CreateModsTable, PQueries::CreateDependenciesTable});
+    qDebug() << "Created PDatabase";
+    qDebug() << "Created PDatabase with tables";
+
+    // --------------------- CREATE MOD CONTROLLER ---------------------
+    // earlier than other controllers because other controllers may depend on it
     QSharedPointer<PModUIController> modController = QSharedPointer<PModUIController>::create(&app, pandaDb);
+    qDebug() << "Created PModUIController";
+
+    // --------------------- LOAD MODS FROM DATABASE ---------------------
     modController->loadMods();
+    qDebug() << "Loaded mods into PModUIController";
+
+    // ---------------------- SET CONTEXT PROPERTIES ---------------------
+    // context properties are the objects accessible from QML
     QSharedPointer<PAppController> state = QSharedPointer<PAppController>::create(&app);
     QSharedPointer<PConfigMgr> zoo = state->m_zooini;
     QSharedPointer<PConfigMgr> settings = state->m_pandacfg;
@@ -38,20 +69,24 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("psettings", settings.get());
     engine.rootContext()->setContextProperty("zoo", zoo.get());
     engine.rootContext()->setContextProperty("launcher", launcher.get());
+    qDebug() << "Set context properties";
 
-    // models
-    qmlRegisterAnonymousType<QAbstractListModel>("PandaLdr", 1);
-    qmlRegisterType<PModItem>("PandaLdr", 1, 0, "PModItem");
-    qRegisterMetaType<PModItem*>("PModItem*");
-    qRegisterMetaType<PModItem*>("QSharedPointer<PModItem>");
-    qmlRegisterUncreatableType<PModItem>("PandaLdr", 1, 0, "PModItem", "PModItem can only be created in C++");
+    // --------------------- REGISTER TYPES ---------------------
+    qmlRegisterAnonymousType<QAbstractListModel>("PandaLdr", 1); // for mod list model
+    qmlRegisterType<PModItem>("PandaLdr", 1, 0, "PModItem"); // for mod item
+    qRegisterMetaType<PModItem*>("PModItem*"); // for signals/slots
+    qRegisterMetaType<PModItem*>("QSharedPointer<PModItem>"); // for signals/slots
+    qmlRegisterUncreatableType<PModItem>("PandaLdr", 1, 0, "PModItem", "PModItem can only be created in C++"); // prevent QML instantiation
+    qDebug() << "Registered PModItem type"; // for logging
 
-    // meta objects
+    // --------------------- REGISTER CONTROLLERS ---------------------
     // qRegisterMetaType<PModList*>("PModList*");
     // qmlRegisterType<PModList>("PandaLdr", 1, 0, "PModList");
     qmlRegisterType<PModUIController>("PandaLdr", 1, 0, "PModUIController");
+    qDebug() << "Registered PModUIController type";
 
-    // Load the main QML file
+    // --------------------- START QML ENGINE ---------------------
+    qDebug() << "Loading QML file";
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,

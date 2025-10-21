@@ -28,7 +28,6 @@ class PAppController : public QObject {
 public:
     explicit PAppController(QObject *parent = nullptr);
     Q_INVOKABLE int launchZT();
-    Q_INVOKABLE int launchScripting();
     QString getGamePath();
     void setGamePath(QString);
     bool loadZooIni();
