@@ -53,6 +53,24 @@ bool PConfigMgr::loadConfig(const QString &filePath)
         return false;
     }
 
+    // first check if config exists
+    if (!QFile::exists(filePath)) {
+        qDebug() << "Config file not found: " << filePath;
+        // create empty config if not loaded
+        m_config->initEmpty();
+        m_configPath = filePath;
+        m_configBackup = m_config->clone();
+
+        if (!m_dirty_laundry) {
+            m_dirty_laundry = createParser(filePath);
+        }
+        m_dirty_laundry->clear();
+        m_dirty = 0;
+        emit dirtyChanged(m_dirty);
+        
+        return true;
+    }
+
     // Load the config file
     if (!m_config->loadConfig(filePath)) {
         qDebug() << "Failed to load config file: " << filePath;
