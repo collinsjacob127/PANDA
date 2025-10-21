@@ -8,6 +8,7 @@ class IConfigLoader {
         virtual ~IConfigLoader() = default;
         virtual bool loadConfig(const QString &filePath) = 0;
         virtual bool saveConfig(const QString &filePath) = 0;
+        virtual bool initEmpty() = 0;
         virtual bool clear() = 0;
 
         virtual QVariant getValue(const QString &section, const QString &key) const = 0;
