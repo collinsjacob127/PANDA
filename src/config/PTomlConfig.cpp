@@ -43,6 +43,11 @@ bool PTomlConfig::saveConfig(const QString &filePath) {
     return true;
 }
 
+bool PTomlConfig::initEmpty() {
+    m_toml.clear();
+    return true;
+}
+
 bool PTomlConfig::clear() {
     m_toml.clear();
     return true;
