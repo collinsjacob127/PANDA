@@ -98,7 +98,20 @@ bool PAppController::loadPandaCfg() {
     if (!QFile::exists(configPath)) {
         qDebug() << "Panda config file not found: " << configPath;
         // time to create a new one
-         m_pandacfg = QSharedPointer<PConfigMgr>::create(this, configPath);
+
+        // first we create the directory
+        QDir dir(m_configPath);
+        if (!dir.exists()) {
+            dir.mkpath(".");
+            qCritical() << "Failed to create the PANDA config directory: " << m_configPath;
+
+            // TODO: handle this error, maybe a fallback to temp directory?
+            return false;
+        } else {
+            qDebug() << "Created PANDA config directory: " << m_configPath;
+        }
+
+        m_pandacfg = QSharedPointer<PConfigMgr>::create(this, configPath);
 
         // add default settings to the config
         m_pandacfg->setValue("zooGamePath", m_path, "");
