@@ -63,6 +63,7 @@ bool PConfigMgr::loadConfig(const QString &filePath)
 
         if (!m_dirty_laundry) {
             m_dirty_laundry = createParser(filePath);
+            m_dirty_laundry->initEmpty();
         }
         m_dirty_laundry->clear();
         m_dirty = 0;
@@ -132,7 +133,10 @@ bool PConfigMgr::saveConfig(const QString &filePath)
         return false;
     }
 
-    m_config->saveConfig(filePath);
+    if (!m_config->saveConfig(filePath)) {
+        qDebug() << "Failed to save config file: " << filePath;
+        return false;
+    }
 
     m_dirty = 0; // Reset dirty flag
     m_configBackup = m_config->clone(); // Create a backup of the config
