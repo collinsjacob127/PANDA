@@ -52,24 +52,6 @@ Rectangle {
 
 
         }
-
-        Button {
-            text: "Install OpenZT"
-            Material.foreground: "#4D523B"
-            Material.background: "#FEB886"
-
-            background: Rectangle {
-                color: "#FEB886"
-                radius: 5
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                onClicked: console.log("Install OpenZT clicked")
-            }
-        }
-
         Item {
             Layout.preferredWidth: 12
         }

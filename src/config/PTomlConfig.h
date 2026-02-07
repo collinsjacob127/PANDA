@@ -13,6 +13,7 @@ public:
     PTomlConfig() = default;
     bool loadConfig(const QString &filePath) override;
     bool saveConfig(const QString &filePath) override;
+    bool initEmpty() override;
     bool clear() override;
 
     // Get and set values
