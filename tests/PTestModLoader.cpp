@@ -1,27 +1,14 @@
-
 #define UNIT_TEST
-#include <QtTest/QtTest>
-#include "PModItem.h"
-#include "PDatabase.h"
-#include "PModQueries.h"
-#include "PFileData.h"
-#include "PConfigMgr.h"
-#include "PApeFile.h"
-#include "PModDataAccess.h"
 
-class PTestModLoader : public QObject
+#include <QtTest/QtTest>
+#include "PConfigMgr.h"
+
+class PTestConfigMgr : public QObject
 {
     Q_OBJECT
 private slots:
-    void testLoadConfig_data();
-    void testLoadConfig();
-    void testModCount_data();
-    void testModCount();
-    void testAddMod_data();
-    void testAddMod();
-    void testRemoveMod_data();
-    void testRemoveMod();
-    void 
+    void testGetIconPngPaths_data();
+    void testGetIconPngPaths();
 };
 
 // Statics
@@ -52,5 +39,5 @@ void PTestConfigMgr::testLoadConfig()
     }
 }
 
-QTEST_MAIN(PTestConfigMgr)
-#include "PTestConfigMgr.moc"
+QTEST_MAIN(PTestModLoader)
+#include "PTestModLoader.moc"
