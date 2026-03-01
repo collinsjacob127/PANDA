@@ -92,28 +92,42 @@ bool PAppController::loadZooIni() {
 }
 
 bool PAppController::loadPandaCfg() {
-    // panda config file path
     QString configPath = m_configPath + "/panda.toml";
-    // check if the config file exists
+    
+    // Check if config file exists
     if (!QFile::exists(configPath)) {
         qDebug() << "Panda config file not found: " << configPath;
-        // time to create a new one
-         m_pandacfg = QSharedPointer<PConfigMgr>::create(this, configPath);
-
-        // add default settings to the config
+        
+        // Create the directory if it doesn't exist
+        QDir dir(m_configPath);
+        if (!dir.exists()) {
+            if (!dir.mkpath(".")) {
+                qCritical() << "Failed to create PANDA config directory:" << m_configPath;
+                return false;
+            }
+            qDebug() << "Created PANDA config directory:" << m_configPath;
+        }
+        
+        // Create new config
+        m_pandacfg = QSharedPointer<PConfigMgr>::create(this, configPath);
         m_pandacfg->setValue("zooGamePath", m_path, "");
         m_pandacfg->setValue("useIsoMounting", false, "");
         m_pandacfg->setValue("isoPath", "", "");
-
-        m_pandacfg->saveConfig(configPath);
-    } else {
-        // load the config file
-        m_pandacfg = QSharedPointer<PConfigMgr>::create(this, configPath);
-        if (!m_pandacfg) {
-            qDebug() << "Failed to load Panda config file: " << configPath;
+        
+        if (!m_pandacfg->saveConfig(configPath)) {
+            qCritical() << "Failed to save Panda config file:" << configPath;
             return false;
         }
-
+        qDebug() << "Created and saved Panda config file:" << configPath;
+        
+    } else {
+        // Load existing config file
+        m_pandacfg = QSharedPointer<PConfigMgr>::create(this, configPath);
+        if (!m_pandacfg) {
+            qDebug() << "Failed to load Panda config file:" << configPath;
+            return false;
+        }
     }
+    
     return true;
 }

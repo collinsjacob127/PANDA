@@ -18,6 +18,11 @@ bool PIniConfig::saveConfig(const QString &filePath) {
     return true;
 }
 
+bool PIniConfig::initEmpty() {
+    m_ini.Reset();
+    return true;
+}
+
 bool PIniConfig::clear() {
     m_ini.Reset();
     return true;

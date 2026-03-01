@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(PandaLdr VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE Release)
 
 find_package(Qt6 REQUIRED COMPONENTS 
     Quick 
@@ -232,6 +233,18 @@ install(TARGETS appPandaLdr
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+set(SRC_DLL "${CMAKE_SOURCE_DIR}/libs/res-openzt.dll")
+set(DEST_DLL "C:\\Program Files (x86)\\Microsoft Games\\Zoo Tycoon")
+
+add_custom_command(
+    OUTPUT ${DEST_DLL}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${SRC_DLL} ${DEST_DLL}
+    DEPENDS ${SRC_DLL}
+    COMMENT "Copying res-openzt.dll to zt folder"
+)
+
+add_custom_target(copy_dll ALL DEPENDS ${DEST_DLL})
 
 
 # Set up unit tests
