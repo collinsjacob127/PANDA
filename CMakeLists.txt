@@ -382,7 +382,40 @@ add_custom_command(TARGET testFileSystem POST_BUILD
 #     ${CMAKE_BINARY_DIR}/test_data
 # )
 
+#------------- PTestModLoader -------------
+qt_add_executable(testModLoader
+    tests/PTestModLoader.cpp
+    src/models/PModItem.h src/models/PModItem.cpp
+    src/database/PDatabase.cpp src/database/PDatabase.h
+    src/database/PModQueries.h
+    src/models/PFileData.h
+    src/ldrs/PConfigMgr.cpp src/ldrs/PConfigMgr.h
+    src/graphics/PApeFile.cpp src/graphics/PApeFile.h
+    src/mods/PModDataAccess.cpp src/mods/PModDataAccess.h
+)
+
+# link the required libraries
+target_link_libraries(testModLoader
+    PRIVATE
+        Qt6::Test
+        Qt6::Core
+        Qt6::Sql
+        ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+        tomlplusplus
+        simpleini
+)
+
+# add test data as resource
+add_custom_command(TARGET testModLoader POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/tests/test_data
+    ${CMAKE_BINARY_DIR}/test_data
+)
+
+
 add_test(NAME testFileSystem COMMAND testFileSystem)
+add_test(NAME testModLoader COMMAND testModLoader)
+
 # add_test(NAME testConfigMgr COMMAND testConfigMgr)
 # # add_test(NAME testDatabaseMgr COMMAND testDatabaseMgr)
 # add_test(NAME testGraphicsMgr COMMAND testGraphicsMgr)
