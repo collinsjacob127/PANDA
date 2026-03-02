@@ -39,6 +39,19 @@ void PTestModController::initTestCase()
     db.closeDatabase();
 }
 
+void PTestModController::cleanupTestCase()
+{
+    // remove the dummy mod entry from the database
+
+    // check if mod exists before attempting to delete
+    if (!PDatabaseMgr().doesModExist("test-mod-id")) {
+        return;
+    }
+    PDatabaseMgr db;
+    db.openDatabase();
+    db.deleteMod("test-mod-id");
+    db.closeDatabase();
+}
 
 QTEST_MAIN(PTestModController)
 #include "PTestModController.moc"
