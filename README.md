@@ -208,3 +208,8 @@ that may (but shouldn't) occur.
 you can simply click the `Play` (arrow) button in the bottom-left from the `Edit` page
 at any time.
 
+9. *There is a temporary issue with some necessary .dlls which may cause the game to
+not successfully launch. The res-openzt.dll and PandaLdr.dll files are missing,
+but an upcoming update will make these files accessible either by default or 
+via a scripted download.
+
