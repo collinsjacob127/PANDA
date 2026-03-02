@@ -13,7 +13,6 @@ concerns itself with the mods list and operations over other classes from the UI
 
 // Project includes
 #include "PAppController.h"
-#include "PZtdMgr.h"
 #include "PDatabaseMgr.h"
 #include "PConfigMgr.h"
 #include "PApeFile.h"
