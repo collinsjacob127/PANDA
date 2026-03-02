@@ -388,9 +388,13 @@ qt_add_executable(testModLoader
     src/database/PModQueries.h
     src/models/PFileData.h
     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
+    src/config/PTomlConfig.cpp src/config/PTomlConfig.h
+    src/config/PIniConfig.cpp src/config/PIniConfig.h
     src/graphics/PApeFile.cpp src/graphics/PApeFile.h
+    src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp    
     src/filesystem/PFile.h src/filesystem/PFile.cpp
     src/mods/PModDataAccess.cpp src/mods/PModDataAccess.h
+    src/filesystem/PZip.cpp src/filesystem/PZip.h
 )
 
 target_include_directories(testModLoader
@@ -419,6 +423,7 @@ target_link_libraries(testModLoader
         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
         tomlplusplus
         simpleini
+        ApeCore
 )
 
 # add test data as resource
