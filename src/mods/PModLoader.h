@@ -15,6 +15,9 @@
 class PModLoader : public QObject
 {
     Q_OBJECT
+    #ifdef UNIT_TEST
+        friend class PTestModLoader;
+    #endif
 public:
     explicit PModLoader(QObject *parent = nullptr, QSharedPointer<PModDataAccess> dataAccess = nullptr)
         : QObject(parent), m_dataAccess(dataAccess), m_resource_path("C:/Program Files (x86)/Microsoft Games/Zoo Tycoon/dlupdate/")
