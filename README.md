@@ -17,6 +17,7 @@ PANDA = Project and Animal Loader.
 - [C++ Toolchain](#microsoft-c++-redistributables)
 - [CMake](#cmake)
 - [Qt Build Tools](#qt-build-tools)
+- [QtCreator IDE](#qtcreator-ide) - *Optional, but strongly recommended*
 
 ### Microsoft C++ Redistributables
 
@@ -55,4 +56,37 @@ CMake suite maintained and supported by Kitware (kitware.com/cmake).
 
 ### Qt Build Tools
 
+This project uses C++ implementations from Qt 6.8.X for just about everything.
+
+The Qt Online Installer can be found [here](https://download.qt.io/official_releases/online_installers/), 
+or downloaded with:
+
+```
+curl -O https://download.qt.io/official_releases/online_installers/qt-online-installer-windows-x64-online.exe
+```
+
+Run the installer and select Qt 6.8.x (As close to 6.8.2) as you can get, I had to go with 6.8.3 which
+has worked well.
+
+### QtCreator IDE
+
+While it is technically possible to build and run PANDA through CLI, the project has historically 
+been developed with the QtCreator IDE's built-in project build / configuration / testing GUI
+functionality.
+
+This is because there are many different toolkits and packages being used, which QtCreator can 
+automatically scan and set proper CMake flags for, rather than the user having to manually 
+keep track of the path for every single referenced toolkit and library.
+
+The QtCreator IDE can be downloaded from 
+[this link](https://download.qt.io/official_releases/qtcreator/18.0/18.0.2/qt-creator-opensource-windows-x86_64-18.0.2.exe).
+
+Once downloaded, complete the following steps:
+1. Run the installation tool.
+2. Create an account with Qt and sign in (free).
+3. In the **customize** menu, select:
+    - Qt Creator 18.0.2
+    - CDB Debugger Support
+    - Debugging Tools for Windows
+4. Follow the remaining instructions provided by the GUI and complete the installation.
 
