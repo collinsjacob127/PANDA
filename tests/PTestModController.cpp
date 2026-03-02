@@ -17,6 +17,13 @@ private slots:
 
 void PTestModController::initTestCase()
 {
+    // cleanup any existing test mod entries in the database before starting tests
+    if (PDatabaseMgr().doesModExist("test-mod-id")) {
+        PDatabaseMgr db;
+        db.openDatabase();
+        db.deleteMod("test-mod-id");
+        db.closeDatabase();
+    }
     // create a dummy mod entry inside of database to test with
     PDatabaseMgr db;
     db.openDatabase();
