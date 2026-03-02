@@ -436,6 +436,8 @@ add_custom_command(TARGET testModLoader POST_BUILD
 #------------- PTestModController -------------
 qt_add_executable(testModController
     tests/PTestModController.cpp
+
+    src/controllers/PModController.cpp src/controllers/PModController.h
     src/app/PAppController.cpp src/app/PAppController.h
     src/app/PLauncher.cpp src/app/PLauncher.h
 
@@ -466,6 +468,7 @@ target_include_directories(testModController
         ${CMAKE_SOURCE_DIR}/src/mods
         ${CMAKE_SOURCE_DIR}/libs/apecore/include
         ${CMAKE_SOURCE_DIR}/src/filesystem
+        ${CMAKE_SOURCE_DIR}/src/controllers
 )
 
 # link the required libraries

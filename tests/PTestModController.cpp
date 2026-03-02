@@ -2,6 +2,7 @@
 
 #include <QtTest/QtTest>
 #include "PModController.h"
+#include "PDatabaseMgr.h"
 
 class PTestModController : public QObject
 {
@@ -34,12 +35,11 @@ void PTestModController::initTestCase()
     mod.setDescription("This is a test mod.");
     mod.setVersion("1.0.0");
     // test location /test_cases/testmod.ztd
-    mod.setLocation("test_cases");
     mod.setFilename("testmod.ztd");
     mod.setEnabled(true);
     mod.setCategory("Test");
     mod.setTags({"Test", "Example"});
-    mod.setOGLocation("test_cases/testmod.ztd");
+    mod.setCurrentLocation("test_cases/");
     mod.setIconPaths({"test_cases/testmod_icon.png"});
     mod.setSelected(false);
     db.insertMod(mod);
