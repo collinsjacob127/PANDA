@@ -2,5 +2,7 @@
 
 ## Steps Taken:
 
-- Add as sub-issue of #9.
+- Added branch as sub-issue of #9.
+- Updated README.md with instructions and specifications for all required toolkits.
+- Going to merge with #9 before main, since they both edit README.md.
 
