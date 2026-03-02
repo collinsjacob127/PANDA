@@ -157,7 +157,6 @@ target_include_directories(appPandaLdr
         ${CMAKE_SOURCE_DIR}/src/filesystem
         ${CMAKE_SOURCE_DIR}/src/config
         ${CMAKE_SOURCE_DIR}/src/database
-        ${CMAKE_SOURCE_DIR}/src/ldrs
         ${CMAKE_SOURCE_DIR}/src/mods
         ${CMAKE_SOURCE_DIR}/src/data
         ${CMAKE_SOURCE_DIR}/libs/apecore/include
@@ -280,7 +279,6 @@ target_include_directories(testFileSystem
         ${CMAKE_SOURCE_DIR}/src/filesystem
         ${CMAKE_SOURCE_DIR}/src/config
         ${CMAKE_SOURCE_DIR}/src/database
-        ${CMAKE_SOURCE_DIR}/src/ldrs
         ${CMAKE_SOURCE_DIR}/src/mods
         ${CMAKE_SOURCE_DIR}/libs/apecore/include
 )
@@ -391,10 +389,11 @@ qt_add_executable(testModLoader
     src/models/PFileData.h
     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
     src/graphics/PApeFile.cpp src/graphics/PApeFile.h
+    src/filesystem/PFile.h src/filesystem/PFile.cpp
     src/mods/PModDataAccess.cpp src/mods/PModDataAccess.h
 )
 
-target_include_directories(testFileSystem
+target_include_directories(testModLoader
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/src/models
@@ -403,6 +402,7 @@ target_include_directories(testFileSystem
         ${CMAKE_SOURCE_DIR}/src/database
         ${CMAKE_SOURCE_DIR}/src/mods
         ${CMAKE_SOURCE_DIR}/libs/apecore/include
+        ${CMAKE_SOURCE_DIR}/src/filesystem/
 )
 
 # link the required libraries
@@ -411,6 +411,11 @@ target_link_libraries(testModLoader
         Qt6::Test
         Qt6::Core
         Qt6::Sql
+        Qt6::Quick 
+        Qt6::QuickControls2
+        Qt6::QuickLayouts
+        Qt6::Svg
+        Qt6::Gui
         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
         tomlplusplus
         simpleini
