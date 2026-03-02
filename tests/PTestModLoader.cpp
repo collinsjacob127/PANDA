@@ -3,7 +3,7 @@
 #include <QtTest/QtTest>
 #include "PConfigMgr.h"
 
-class PTestConfigMgr : public QObject
+class PTestModLoader : public QObject
 {
     Q_OBJECT
 private slots:
@@ -43,17 +43,15 @@ private slots:
 // Statics
 QString testDataDir = QFINDTESTDATA("test_data/");
 
-void PTestConfigMgr::testLoadConfig_data()
+void PTestModLoader::testGetIconPngPaths_data()
 {
-    QTest::addColumn<QString>("filePath");
+    QTest::addColumn<QStringList>("filePathList");
     QTest::addColumn<bool>("expected");
 
-    QTest::newRow("ini config") << testDataDir + "config.ini" << true;
-    QTest::newRow("toml config") << testDataDir + "config.toml" << true;
-    QTest::newRow("invalid config") << testDataDir + "config_invalid.ini" << false;
-    QTest::newRow("empty config") << testDataDir + "config_empty.ini" << false;
+    QTest::newRow("list of icon paths") << testDataDir + "config.ini" << true;
 }
-void PTestConfigMgr::testLoadConfig()
+
+void PTestModLoader::testGetIconPngPaths()
 {
     QFETCH(QString, filePath);
     QFETCH(bool, expected);

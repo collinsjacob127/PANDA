@@ -389,9 +389,20 @@ qt_add_executable(testModLoader
     src/database/PDatabase.cpp src/database/PDatabase.h
     src/database/PModQueries.h
     src/models/PFileData.h
-    src/ldrs/PConfigMgr.cpp src/ldrs/PConfigMgr.h
+    src/config/PConfigMgr.cpp src/config/PConfigMgr.h
     src/graphics/PApeFile.cpp src/graphics/PApeFile.h
     src/mods/PModDataAccess.cpp src/mods/PModDataAccess.h
+)
+
+target_include_directories(testFileSystem
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/models
+        ${CMAKE_SOURCE_DIR}/src/graphics
+        ${CMAKE_SOURCE_DIR}/src/config
+        ${CMAKE_SOURCE_DIR}/src/database
+        ${CMAKE_SOURCE_DIR}/src/mods
+        ${CMAKE_SOURCE_DIR}/libs/apecore/include
 )
 
 # link the required libraries
