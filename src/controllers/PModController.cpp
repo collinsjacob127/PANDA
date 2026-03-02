@@ -59,7 +59,8 @@ void PModController::removeMod(QSharedPointer<PModItem> mod)
     QString location = mod->location();
     QString filename = mod->filename();
     QString ztdFilePath = location + "/" + filename;
-    if (PZip::remove(ztdFilePath)) {
+
+    if (PFileSystem::deleteFile(ztdFilePath)) {
         qDebug() << "Deleted ztd file: " << ztdFilePath;
     } else {
         qDebug() << "Failed to delete ztd file: " << ztdFilePath;

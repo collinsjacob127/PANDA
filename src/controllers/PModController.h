@@ -16,6 +16,7 @@ concerns itself with the mods list and operations over other classes from the UI
 #include "PConfigMgr.h"
 #include "PApeFile.h"
 #include "PModMgr.h"
+#include "PFileSystem.h"
 
 // Models
 #include "PModItem.h"
