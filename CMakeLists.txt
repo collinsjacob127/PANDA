@@ -500,6 +500,7 @@ qt_add_executable(testAppController
     tests/PTestAppController.cpp
     src/app/PAppController.cpp src/app/PAppController.h
     src/app/PLauncher.cpp src/app/PLauncher.h
+    src/controllers/PModMgr.cpp src/controllers/PModMgr.h
 
     src/models/PModItem.h src/models/PModItem.cpp
 
