@@ -435,8 +435,9 @@ add_custom_command(TARGET testModLoader POST_BUILD
 
 #------------- PTestModController -------------
 qt_add_executable(testModController
-    tests/PTestModLoader.cpp
+    tests/PTestModController.cpp
     src/app/PAppController.cpp src/app/PAppController.h
+    src/app/PLauncher.cpp src/app/PLauncher.h
 
     src/models/PModItem.h src/models/PModItem.cpp
 
@@ -485,7 +486,7 @@ target_link_libraries(testModController
 )
 
 # add test data as resource
-add_custom_command(TARGET testModLoader POST_BUILD
+add_custom_command(TARGET testModController POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/tests/test_data
     ${CMAKE_BINARY_DIR}/test_data
