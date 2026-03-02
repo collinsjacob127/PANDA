@@ -17,8 +17,8 @@ PANDA = Project and Animal Loader.
 - [CMake](#cmake)
 - [Qt Build Tools](#qt-build-tools)
 - [QtCreator IDE](#qtcreator-ide) - *Optional, but strongly recommended*
-- Copy of `Zoo Tycoon Complete Collection Disk 1.iso` - Installed
-- Copy of `Zoo Tycoon Complete Collection Disk 2.iso` - Installed
+- Copy of `Zoo Tycoon Complete Collection Disk 1.iso` - Optional
+- Copy of `Zoo Tycoon Complete Collection Disk 2.iso` - Optional
 
 ### Microsoft C++ Redistributables
 
