@@ -17,6 +17,8 @@ PANDA = Project and Animal Loader.
 - [CMake](#cmake)
 - [Qt Build Tools](#qt-build-tools)
 - [QtCreator IDE](#qtcreator-ide) - *Optional, but strongly recommended*
+- Copy of `Zoo Tycoon Complete Collection Disk 1.iso` - Installed
+- Copy of `Zoo Tycoon Complete Collection Disk 2.iso` - Installed
 
 ### Microsoft C++ Redistributables
 
@@ -140,7 +142,7 @@ been successfully added to your path!
 Get-Command ninja.exe
 ```
 
-### Commands to Build PANDAS on CLI
+### Commands to Build PANDA on CLI
 
 1. Traverse to project root:
 
@@ -160,5 +162,49 @@ cmake -G "Ninja" `
 
 ## IDE Build Instructions
 
+The Qt Development Framework has dozens of libraries & toolkits being linked as 
+CMake arguments in a very delicate and dynamic manner. This makes working with 
+Qt on a large scale project practically irrelevant.
 
+Qt provides the QtCreator IDE to get arround the CLI issues, as the IDE can 
+automate the build and test processes without hardly any issue.
+
+To build the project with the QtCreator IDE, proceed with the following steps:
+
+(This assumes you have installed the prerequisite toolkits and packages)
+
+0. Clone the GitHub Repository
+
+```
+git clone git@github.com:collinsjacob127/PANDA.git
+```
+
+1. If you haven't already, be sure to link your previously installed Qt Toolkit (6.8.x)
+to the QtCreator IDE.
+
+A pop-up should appear in the bottom-right when you open the IDE, asking if you'd like to link.
+
+2. Open the QtCreator IDE
+
+    - In the *Welcome* page, select `Open Project...`
+    - Navigate to the cloned repository, and select `CMakeLists.txt`
+    - (In my case, this was `"C:\Users\vboxuser\Documents\GitHub\PANDA\CMakeLists.txt"`)
+    - Press `Open`
+
+3. Navigate to the `Projects` page.
+
+4. If it asks you to select a toolkit, choose `Desktop Qt 6.8.X MinGW 64-bit`.
+
+5. Back in Projects > Build Settings, change the Build type to `Release`
+
+6. Click `Run CMake`, under the list of CMake arguments.
+
+- The terminal on the right should display the build process, including any errors
+that may (but shouldn't) occur.
+
+7. To run *tests*, select `Tools > Tests > Run All Tests` from the top menu.
+
+8. To run the PANDA program, now that you've configured the build settings properly,
+you can simply click the `Play` (arrow) button in the bottom-left from the `Edit` page
+at any time.
 
