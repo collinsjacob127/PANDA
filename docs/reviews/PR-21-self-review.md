@@ -7,6 +7,7 @@
 - Added instructions for Ninja build tool
 - [Attempted CLI build using CMake & Ninja](#cmake-with-ninja)
 - [Attempted CLI build using CMake](#cmake-without-ninja)
+- Merging #9 into #19 to continue with IDE instructions instead.
 
 ### CMake with Ninja
 
