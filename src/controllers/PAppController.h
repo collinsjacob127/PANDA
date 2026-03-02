@@ -14,7 +14,6 @@
 
 // Project
 #include "PModItem.h"
-#include "PSystemMgr.h"
 #include "PConfigMgr.h"
 
 class PAppController : public QObject {
