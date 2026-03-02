@@ -60,5 +60,43 @@ void PTestModController::cleanupTestCase()
     db.closeDatabase();
 }
 
+void PTestModController::testRemoveMod_data()
+{
+    QTest::addColumn<QString>("modId");
+    QTest::addColumn<bool>("expected");
+
+    QTest::newRow("Remove existing mod") << "test-mod-id" << true;
+    QTest::newRow("Remove non-existing mod") << "non-existing-mod-id" << false;
+}
+
+void PTestModController::testRemoveMod()
+{
+    QFETCH(QString, modId);
+    QFETCH(bool, expected);
+
+    PDatabaseMgr db;
+    db.openDatabase();
+    QSharedPointer<PModItem> mod = db.getModByPk(modId);
+    db.closeDatabase();
+
+    if (!mod) {
+        qDebug() << "Mod not found in database: " << modId;
+        QCOMPARE(false, expected);
+        return;
+    }
+
+    PModController controller;
+    controller.removeMod(mod);
+
+    // check if the mod was deleted from the database
+    bool existsInDb = PDatabaseMgr().doesModExist(modId);
+    QCOMPARE(!existsInDb, expected);
+
+    // check if the mod file was deleted from the filesystem
+    QString filePath = mod->location() + "/" + mod->filename();
+    bool fileExists = QFile::exists(filePath);
+    QCOMPARE(!fileExists, expected);
+}
+
 QTEST_MAIN(PTestModController)
 #include "PTestModController.moc"
