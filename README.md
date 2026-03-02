@@ -89,3 +89,66 @@ Once downloaded, complete the following steps:
     - Debugging Tools for Windows
 4. Follow the remaining instructions provided by the GUI and complete the installation.
 
+## Build Instructions (CLI)
+
+This assumes that you have already downloaded and set up all prerequisites.
+
+There is one additional prerequisite specifically for building the project:
+
+### Ninja
+
+Go to [Ninja Releases](https://github.com/ninja-build/ninja/releases) on GitHub,
+and download the most recent version.
+
+An easy way to get the extracted `ninja.exe` on your PATH is to simply copy it 
+into CMake's `bin/` folder.
+
+
+This will tell you where CMake is currently installed:
+
+```
+Get-Command cmake
+```
+
+This will extract `ninja-win.zip` (make sure you're in the same directory
+as the compressed file):
+
+```
+C:\Users\vboxuser\Downloads> Expand-Archive -Path .\ninja-win.zip
+```
+
+Now, in an admin PowerShell instance, still in the parent directory of the 
+zipped file and it's decompressed contents:
+
+```
+cp .\ninja-win\ninja.exe 'C:\Program Files\CMake\bin\'
+ls 'C:\Program Files\CMake\bin\'
+```
+
+That should output the contents of `...\CMake\bin`, including `ninja.exe`.
+
+If you now run the following command, you should see that ninja.exe has 
+been successfully added to your path!
+
+```
+Get-Command ninja.exe
+```
+
+### Commands to Build PANDAS on CLI
+
+1. Traverse to project root:
+
+```
+cd C:\Users\<username>\Documents\GitHub\PANDA
+```
+
+2. Run the following command:
+
+```
+cmake -G "Ninja" `
+-DCMAKE_C_COMPILER="<path_to_gcc.exe>" `
+-DCMAKE_CXX_COMPILER="<path_to_g++.exe>" `
+-DCMAKE_PREFIX_PATH="<path_to_mingw_64>" `
+-S . -B ./build
+```
+
