@@ -89,7 +89,13 @@ Once downloaded, complete the following steps:
     - Debugging Tools for Windows
 4. Follow the remaining instructions provided by the GUI and complete the installation.
 
-## Build Instructions (CLI)
+## Build Instructions (CLI) - Defunct
+
+**The CLI build instructions do not work, and are merely here as a reference in case anyone
+would like to give it a shot.**
+
+**Please look at the [IDE Build Instructions](#ide_build_instructions) for help 
+building the project.**
 
 This assumes that you have already downloaded and set up all prerequisites.
 
@@ -151,4 +157,8 @@ cmake -G "Ninja" `
 -DCMAKE_PREFIX_PATH="<path_to_mingw_64>" `
 -S . -B ./build
 ```
+
+## IDE Build Instructions
+
+
 
