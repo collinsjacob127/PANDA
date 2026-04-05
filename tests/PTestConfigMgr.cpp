@@ -40,11 +40,7 @@ void PTestConfigMgr::testLoadConfig()
     PConfigMgr configMgr;
     bool result = configMgr.loadConfig(filePath);
 
-    if (expected) {
-        QVERIFY(result);
-    } else {
-        QVERIFY(!result);
-    }
+    QCOMPARE(result, expected);
 }
 
 // INI config test data
