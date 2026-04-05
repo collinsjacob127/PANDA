@@ -9,6 +9,7 @@ private slots:
     void testLoadConfig_data();
     void testLoadConfig();
     void testLoadConfig_tempFileCleanup();
+    void testLoadConfig_parallelNoConflicts();
     void testSaveConfig_data();
     void testSaveConfig();
     void testGetValue_INI_data();
@@ -65,6 +66,25 @@ void PTestConfigMgr::testLoadConfig_tempFileCleanup()
     qDebug() << "After files:" << afterFiles << "\n";
 
     QCOMPARE(beforeFiles, afterFiles);
+}
+
+// program in parallel to ensure no collisions with temp files created by QTemporaryFile
+void PTestConfigMgr::testLoadConfig_parallelNoConflicts()
+{
+    const int numThreads = 10;
+    QVector<QFuture<void>> futures;
+
+    for (int i = 0; i < numThreads; ++i) {
+        futures.append(QtConcurrent::run([&, i]() {
+            PConfigMgr configMgr;
+            futures = configMgr.loadConfig(testDataDir + "config.ini");
+        }
+    }
+
+    for (int i = 0; i < numThreads; ++i) {
+        bool result = futures[i].result();
+        QCOMPARE(result, true);
+    }
 }
 
 // INI config test data
