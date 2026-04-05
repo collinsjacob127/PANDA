@@ -86,6 +86,11 @@ void PTestConfigMgr::testLoadConfig_parallelNoConflicts()
     for (auto &future : futures) {
         future.waitForFinished();
     }
+
+    // check results
+    for (bool result : results) {
+        QVERIFY(result);
+    }
 }
 
 // INI config test data
