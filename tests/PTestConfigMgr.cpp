@@ -1,6 +1,7 @@
 #include <QtTest/QtTest>
 #include "PConfigMgr.h"
 #include "PFile.h"
+#include <QtConcurrent/QtConcurrent>
 
 class PTestConfigMgr : public QObject
 {
