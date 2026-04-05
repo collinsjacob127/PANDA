@@ -184,7 +184,7 @@ bool PTomlConfig::keyExists(const QString &key, const QString &section) const {
     return false;
 }
 
-const toml::table* PTomlConfig::resolveTable(const QString& section) {
+const toml::table* PTomlConfig::resolveTable(const QString& section) const {
     const toml::table* table = &m_toml;
 
     // look through nested tables ("sections") first
