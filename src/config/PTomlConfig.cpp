@@ -189,7 +189,7 @@ const toml::table* PTomlConfig::resolveTable(const QString& section) {
 
     // look through nested tables ("sections") first
     if (!section.isEmpty()) {
-        auto found = m_toml.find(s);
+        auto found = m_toml.find(section.toStdString());
         if (found == m_toml.end() || !found->second.is_table()) {
             return nullptr;
         }
@@ -224,7 +224,6 @@ bool PTomlConfig::valueExists(const QString &value, const QString &key, const QS
     }
 
     std::string k = key.toStdString();
-    std::string s = section.toStdString();
     const std::string expected = value.toStdString();
 
     const toml::table* table = resolveTable(section);
