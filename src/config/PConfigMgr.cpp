@@ -102,7 +102,14 @@ bool PConfigMgr::loadConfig(const QSharedPointer<PFileData> &fileData)
     }
 
     // Create a temporary file to load the config from
-    QTemporaryFile tempFile;
+    QTemporaryFile tempFile(
+        QDir::tempPath() + 
+        QDir::separator() + 
+        fileData->filename + 
+        "XXXXXX." + 
+        fileData->ext
+    );
+
     if (!tempFile.open()) {
         return false;
     }
