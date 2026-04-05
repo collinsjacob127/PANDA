@@ -7,6 +7,7 @@ class PTestConfigMgr : public QObject
 private slots:
     void testLoadConfig_data();
     void testLoadConfig();
+    void testLoadConfig_tempFileCleanup();
     void testSaveConfig_data();
     void testSaveConfig();
     void testGetValue_INI_data();
@@ -41,6 +42,22 @@ void PTestConfigMgr::testLoadConfig()
     bool result = configMgr.loadConfig(filePath);
 
     QCOMPARE(result, expected);
+}
+
+// tests that temp files created with QTemporaryFile are cleaned up
+vod PTestConfigMgr::testLoadConfig_tempFileCleanup()
+{
+    // get list of files in temp dir before loading config
+    QDir tempDir(QDir::tempPath());
+    QStringList beforeFiles = tempDir.entryList(QDir::Files);
+
+    PConfigMgr configMgr;
+    configMgr.loadConfig(testDataDir + "config.ini");
+
+    // check dir after
+    QStringList afterFiles = tempDir.entryList(QDir::Files);
+
+    QCOMPARE(beforeFiles, afterFiles);
 }
 
 // INI config test data
