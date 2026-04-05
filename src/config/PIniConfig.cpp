@@ -230,35 +230,3 @@ QVariant PIniConfig::extractVariant(const QString& query) const {
 
     return QVariant(query); // interpret as string
 }
-
-
-
-// // TODO: Implement
-// void PZooConfig::updateUnlockEntity(const QString &key, const QString &value) {
-//     // m_unlockEntity.append(value);
-//     // m_configTable["user"][key] = value.toStdString();
-//     // emit unlockEntityUpdated(key, value);
-// }
-
-// // void PZooConfig::setZooConfigPath(const QString &path) {
-// //     if (m_zooConfigPath != path) {
-// //         m_zooConfigPath = path;
-// //         emit zooConfigPathChanged(m_zooConfigPath);
-// //     }
-// // }
-
-// // helper that removes empty keys from the settings
-// void PZooConfig::removeEmptyKeys(const QString &section, const QString &test) {
-//     // get all the keys in the section
-//     CSimpleIniA::TNamesDepend keys;
-//     m_zooini->GetAllKeys(section.toStdString().c_str(), keys);
-
-//     for (const auto &key : keys) {
-//         // check if the key is empty
-//         if (key.pItem == test.toStdString().c_str()) {
-//             // remove the key from the settings
-//             bool deleteSectionIfEmpty = true;
-//             m_zooini->Delete(section.toStdString().c_str(), key.pItem, deleteSectionIfEmpty);
-//         }
-//     }
-// }
