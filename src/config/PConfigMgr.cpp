@@ -107,6 +107,10 @@ bool PConfigMgr::loadConfig(const QSharedPointer<PFileData> &fileData)
         return false;
     }
 
+    // write data to tempFile and write to disk
+    tempFile.write(fileData->data);
+    tempFile.flush();
+
     QString tempFilePath = QDir::tempPath() + "/" + fileData->filename + "." + fileData->ext;
     QFile tempFile(tempFilePath);
     if (!tempFile.open(QIODevice::WriteOnly)) {
