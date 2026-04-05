@@ -72,13 +72,14 @@ void PTestConfigMgr::testLoadConfig_tempFileCleanup()
 void PTestConfigMgr::testLoadConfig_parallelNoConflicts()
 {
     const int numThreads = 10;
+    QList<bool> results(numThreads);
     QVector<QFuture<void>> futures;
 
     for (int i = 0; i < numThreads; ++i) {
         futures.append(QtConcurrent::run([&, i]() {
             PConfigMgr configMgr;
-            futures = configMgr.loadConfig(testDataDir + "config.ini");
-        }
+            results[i] = configMgr.loadConfig(testDataDir + "config.ini");
+        }));
     }
 
     for (int i = 0; i < numThreads; ++i) {
