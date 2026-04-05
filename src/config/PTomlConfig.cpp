@@ -205,7 +205,8 @@ auto PTomlConfig::findKey(const toml::table* table, const std::string& key) cons
     return table->find(key);
 }
 
-bool PTomlConfig::validateNode(const toml::node& node, const QString &value, const QString& expected) const {
+bool PTomlConfig::validateNode(const toml::node& node, const QString &value) const {
+    const std::string expected = value.toStdString();
     if (auto val = node.as_string()) {
         return val->get() == expected;
     } else if (auto val = node.as_integer()) {
@@ -239,7 +240,7 @@ bool PTomlConfig::valueExists(const QString &value, const QString &key, const QS
     // here we just cast the node to expected type and compare it to the value
     const toml::node& node = it->second;
 
-    return validateNode(node, value, expected);
+    return validateNode(node, value);
 }
 
 
