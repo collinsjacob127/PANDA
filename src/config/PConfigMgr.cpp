@@ -126,8 +126,8 @@ bool PConfigMgr::loadConfig(const QSharedPointer<PFileData> &fileData)
     tempFile.close();
 
     // Load the config from the temporary file
-    bool result = loadConfig(tempFilePath);
-    QFile::remove(tempFilePath); // Remove the temporary file
+    bool result = loadConfig(tempFile.fileName());
+    QFile::remove(tempFile.fileName()); // Remove the temporary file
 
     return result;
 }
