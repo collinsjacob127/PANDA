@@ -303,7 +303,7 @@ add_custom_command(TARGET testFileSystem POST_BUILD
     ${CMAKE_BINARY_DIR}/test_data
 )
 
-------------- PTestConfigMgr -------------
+# ------------- PTestConfigMgr -------------
 qt_add_executable(testConfigMgr
     tests/PTestConfigMgr.cpp
     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
