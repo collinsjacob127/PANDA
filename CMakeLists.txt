@@ -303,33 +303,33 @@ add_custom_command(TARGET testFileSystem POST_BUILD
     ${CMAKE_BINARY_DIR}/test_data
 )
 
-# ------------- PTestConfigMgr -------------
-# qt_add_executable(testConfigMgr
-#     tests/PTestConfigMgr.cpp
-#     src/ldrs/PConfigMgr.cpp src/ldrs/PConfigMgr.h
-#     src/interfaces/IConfigLoader.h src/interfaces/IConfigLoader.cpp
-#     src/ldrs/PIniConfig.cpp src/ldrs/PIniConfig.h
-#     src/ldrs/PTomlConfig.cpp src/ldrs/PTomlConfig.h
+------------- PTestConfigMgr -------------
+qt_add_executable(testConfigMgr
+    tests/PTestConfigMgr.cpp
+    src/config/PConfigMgr.cpp src/config/PConfigMgr.h
+    src/interfaces/IConfigLoader.h src/interfaces/IConfigLoader.cpp
+    src/config/PIniConfig.cpp src/config/PIniConfig.h
+    src/config/PTomlConfig.cpp src/config/PTomlConfig.h
 
-# )
+)
 
-# # link the required libraries
-# target_link_libraries(testConfigMgr
-#     PRIVATE
-#         Qt6::Test
-#         Qt6::Core
-#         Qt6::Sql
-#         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
-#         tomlplusplus
-#         simpleini
-# )
+# link the required libraries
+target_link_libraries(testConfigMgr
+    PRIVATE
+        Qt6::Test
+        Qt6::Core
+        Qt6::Sql
+        ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+        tomlplusplus
+        simpleini
+)
 
-# # add test data as resource
-# add_custom_command(TARGET testConfigMgr POST_BUILD
-#     COMMAND ${CMAKE_COMMAND} -E copy_directory
-#     ${CMAKE_SOURCE_DIR}/tests/test_data
-#     ${CMAKE_BINARY_DIR}/test_data
-# )
+# add test data as resource
+add_custom_command(TARGET testConfigMgr POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/tests/test_data
+    ${CMAKE_BINARY_DIR}/test_data
+)
 
 # # ------------- PTestDatabaseMgr -------------
 # qt_add_executable(testDatabaseMgr
