@@ -45,7 +45,7 @@ void PTestConfigMgr::testLoadConfig()
 }
 
 // tests that temp files created with QTemporaryFile are cleaned up
-vod PTestConfigMgr::testLoadConfig_tempFileCleanup()
+void PTestConfigMgr::testLoadConfig_tempFileCleanup()
 {
     // get list of files in temp dir before loading config
     QDir tempDir(QDir::tempPath());
