@@ -5,7 +5,12 @@ const QString m_metaConfigName = "meta.toml";
 const QString m_configDirPath = QDir::homePath() + "/.config/PandaLdr/"; // temporary
 const QString m_metaConfigDirPath = m_configDirPath + "meta_configs/"; // temporary
 
-PConfigMgr::PConfigMgr(QObject *parent, const QString &filepath) : QObject(parent), m_dirty(0), m_config(nullptr), m_configBackup(nullptr), m_dirty_laundry(nullptr)
+PConfigMgr::PConfigMgr(QObject *parent, const QString &filepath) 
+    : QObject(parent), 
+    m_dirty(0), 
+    m_config(nullptr), 
+    m_configBackup(nullptr), 
+    m_dirty_laundry(nullptr)
 {
     m_dirty = 0;
     
