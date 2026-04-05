@@ -310,6 +310,7 @@ qt_add_executable(testConfigMgr
     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
     src/config/PIniConfig.cpp src/config/PIniConfig.h
     src/config/PTomlConfig.cpp src/config/PTomlConfig.h
+    src/models/PFileData.h
 
 )
 
@@ -317,6 +318,7 @@ target_include_directories(testConfigMgr
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/src/config
+        ${CMAKE_SOURCE_DIR}/src/models
 )
 
 # link the required libraries
