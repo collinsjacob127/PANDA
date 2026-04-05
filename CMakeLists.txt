@@ -306,11 +306,17 @@ add_custom_command(TARGET testFileSystem POST_BUILD
 # ------------- PTestConfigMgr -------------
 qt_add_executable(testConfigMgr
     tests/PTestConfigMgr.cpp
+    src/config/IConfigLoader.h
     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
-    src/config/IConfigLoader.h src/config/IConfigLoader.cpp
     src/config/PIniConfig.cpp src/config/PIniConfig.h
     src/config/PTomlConfig.cpp src/config/PTomlConfig.h
 
+)
+
+target_include_directories(testConfigMgr
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/config
 )
 
 # link the required libraries
