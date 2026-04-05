@@ -184,6 +184,22 @@ bool PTomlConfig::keyExists(const QString &key, const QString &section) const {
     return false;
 }
 
+const toml::table* PTomlConfig::findNestedTable(const QString& section) {
+    const toml::table* table = &m_toml;
+
+    // look through nested tables ("sections") first
+    if (!section.isEmpty()) {
+        auto found = m_toml.find(s);
+        if (found == m_toml.end() || !found->second.is_table()) {
+            return nullptr;
+        }
+        // found a nested table, so get the table ref
+        table = found->second.as_table(); 
+    }
+
+    return table;
+}
+
 bool PTomlConfig::valueExists(const QString &value, const QString &key, const QString &section) const {
     if (value.isNull()) {
         return false;
@@ -193,16 +209,9 @@ bool PTomlConfig::valueExists(const QString &value, const QString &key, const QS
     std::string s = section.toStdString();
     const std::string expected = value.toStdString();
 
-    const toml::table* table = &m_toml;
-
-    // look through nested tables ("sections") first
-    if (!section.isEmpty()) {
-        auto found = m_toml.find(s);
-        if (found == m_toml.end() || !found->second.is_table()) {
-            return false;
-        }
-        // found a nested table, so get the table ref
-        table = found->second.as_table(); 
+    const toml::table* table = findNestedTable(section);
+    if (!table) {
+        return false;
     }
 
     // check if key exists in the table
