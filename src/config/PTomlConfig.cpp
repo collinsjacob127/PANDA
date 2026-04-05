@@ -200,6 +200,11 @@ const toml::table* PTomlConfig::resolveTable(const QString& section) {
     return table;
 }
 
+auto PTomlConfig::findKey(const toml::table* table, const std::string& key) const {
+    // check if key exists in the table
+    return table->find(key);
+}
+
 bool PTomlConfig::valueExists(const QString &value, const QString &key, const QString &section) const {
     if (value.isNull()) {
         return false;
@@ -214,9 +219,8 @@ bool PTomlConfig::valueExists(const QString &value, const QString &key, const QS
         return false;
     }
 
-    // check if key exists in the table
-    auto it = table->find(k);
-    if (it == table->end()) {
+    auto it = findKey(table, k);
+    if (k.empty() || it == table->end()) {
         return false;
     }
 

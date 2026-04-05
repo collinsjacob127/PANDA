@@ -32,6 +32,7 @@ public:
 
     // helpers
     const toml::table* resolveTable(const QString& section);
+    auto findKey(const toml::table* table, const std::string& key) const;
 
     // Operator overloads
     PTomlConfig& operator=(const PTomlConfig& other) { // Copy assignment operator
