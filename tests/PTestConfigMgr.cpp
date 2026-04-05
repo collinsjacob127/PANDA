@@ -68,8 +68,6 @@ void PTestConfigMgr::testGetValue_INI()
     PConfigMgr configMgr;
     configMgr.loadConfig(testDataDir + "config.ini");
     QString result = configMgr.getValue(section, key).toString();
-    qDebug() << "Result: " << result;
-    qDebug() << "Expected: " << expected;
 
     if (expected.isEmpty()) {
         QVERIFY(result.isEmpty());
@@ -101,8 +99,6 @@ void PTestConfigMgr::testGetValue_TOML()
     configMgr.loadConfig(testDataDir + "config.toml");
 
     QVariant result = configMgr.getValue(section, key);
-    qDebug() << "Result: " << result;
-    qDebug() << "Expected: " << expected;
 
     QCOMPARE(result, expected);
 }
@@ -129,8 +125,6 @@ void PTestConfigMgr::testSetValue_INI()
     configMgr.setValue(key, value, section);
 
     QString result = configMgr.getValue(section, key).toString();
-    qDebug() << "Result: " << result;
-    qDebug() << "Expected: " << value;
 
     QCOMPARE(result, value);
 }
@@ -157,8 +151,6 @@ void PTestConfigMgr::testSetValue_TOML()
     configMgr.setValue(key, value, section);
 
     QVariant result = configMgr.getValue(section, key);
-    qDebug() << "Result: " << result;
-    qDebug() << "Expected: " << value;
 
     QCOMPARE(result, value);
 }
@@ -184,22 +176,12 @@ void PTestConfigMgr::testSaveConfig()
     configMgr.setValue("fullscreen", "1", "user");
     configMgr.setValue("path", "./dlupdate;.", "resource"); 
     configMgr.setValue("isoPath", "F:\\Backup_041723\\Zoo Tycoon Complete Collection Disk 3.iso", "");
-    qDebug() << "Saving config to: " << filePath + ".test";
     bool result = configMgr.saveConfig(filePath + ".test");
 
     // check if the file was saved successfully
     QFile savedFile(filePath + ".test");
-    if (savedFile.exists()) {
-        qDebug() << "Saved file exists: " << savedFile.exists();
-    } else {
-        qDebug() << "Saved file does not exist: " << savedFile.exists();
-    }
 
-    if (expected) {
-        QVERIFY(result);
-    } else {
-        QVERIFY(!result);
-    }
+    QCOMPARE(result, expected);
 }
 
 QTEST_MAIN(PTestConfigMgr)
