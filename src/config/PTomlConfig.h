@@ -30,6 +30,9 @@ public:
     bool keyExists(const QString &key, const QString &section) const override;
     bool valueExists(const QString &value, const QString &key, const QString &section) const override;
 
+    // helpers
+    const toml::table* findNestedTable(const QString& section);
+
     // Operator overloads
     PTomlConfig& operator=(const PTomlConfig& other) { // Copy assignment operator
         if (this != &other) {
