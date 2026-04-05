@@ -118,8 +118,7 @@ bool PConfigMgr::loadConfig(const QSharedPointer<PFileData> &fileData)
     tempFile.write(fileData->data);
     tempFile.flush();
 
-    QString tempFilePath = QDir::tempPath() + "/" + fileData->filename + "." + fileData->ext;
-    QFile tempFile(tempFilePath);
+    // load config from tempFile
     if (!tempFile.open(QIODevice::WriteOnly)) {
         return false;
     }
