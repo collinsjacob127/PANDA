@@ -1,5 +1,6 @@
 #include <QtTest/QtTest>
 #include "PConfigMgr.h"
+#include "PFile.h"
 
 class PTestConfigMgr : public QObject
 {
@@ -50,12 +51,19 @@ void PTestConfigMgr::testLoadConfig_tempFileCleanup()
     // get list of files in temp dir before loading config
     QDir tempDir(QDir::tempPath());
     QStringList beforeFiles = tempDir.entryList(QDir::Files);
+    qDebug() << "Before files:" << beforeFiles << "\n";
 
     PConfigMgr configMgr;
-    configMgr.loadConfig(testDataDir + "config.ini");
+    PFileData fileData;
+    fileData.filename = "config.ini";
+    fileData.ext = "ini";
+    fileData.data = QFile::readAll(testDataDir + "config.ini");
+
+    configMgr.loadConfig(fileData);
 
     // check dir after
     QStringList afterFiles = tempDir.entryList(QDir::Files);
+    qDebug() << "After files:" << afterFiles << "\n";
 
     QCOMPARE(beforeFiles, afterFiles);
 }
