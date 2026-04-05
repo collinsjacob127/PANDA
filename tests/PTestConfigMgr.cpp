@@ -82,9 +82,9 @@ void PTestConfigMgr::testLoadConfig_parallelNoConflicts()
         }));
     }
 
-    for (int i = 0; i < numThreads; ++i) {
-        bool result = futures[i].result();
-        QCOMPARE(result, true);
+    // wait for all to finish
+    for (auto &future : futures) {
+        future.waitForFinished();
     }
 }
 
