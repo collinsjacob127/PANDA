@@ -312,6 +312,8 @@ qt_add_executable(testConfigMgr
     src/config/PTomlConfig.cpp src/config/PTomlConfig.h
     src/models/PFileData.h
     src/filesystem/PFile.h src/filesystem/PFile.cpp
+    src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp
+    src/filesystem/PZip.h src/filesystem/PZip.cpp
 
 )
 
