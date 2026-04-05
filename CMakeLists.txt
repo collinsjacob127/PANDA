@@ -600,6 +600,6 @@ add_test(NAME testModController COMMAND testModController)
 add_test(NAME testAppController COMMAND testAppController)
 add_test(NAME testLauncher COMMAND testLauncher)
 
-# add_test(NAME testConfigMgr COMMAND testConfigMgr)
+add_test(NAME testConfigMgr COMMAND testConfigMgr)
 # # add_test(NAME testDatabaseMgr COMMAND testDatabaseMgr)
 # add_test(NAME testGraphicsMgr COMMAND testGraphicsMgr)
