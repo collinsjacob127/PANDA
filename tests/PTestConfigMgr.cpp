@@ -53,13 +53,10 @@ void PTestConfigMgr::testLoadConfig_tempFileCleanup()
     QStringList beforeFiles = tempDir.entryList(QDir::Files);
     qDebug() << "Before files:" << beforeFiles << "\n";
 
+    const QSharedPointer<PFile> fileData = QSharedPointer<PFile>::create(nullptr, testDataDir + "config.ini", FileType::Other);
+    QSharedPointer<PFileData> fileDataPtr = fileData->read("");
     PConfigMgr configMgr;
-    PFileData fileData;
-    fileData.filename = "config.ini";
-    fileData.ext = "ini";
-    fileData.data = QFile::readAll(testDataDir + "config.ini");
-
-    configMgr.loadConfig(fileData);
+    configMgr.loadConfig(fileDataPtr);
 
     // check dir after
     QStringList afterFiles = tempDir.entryList(QDir::Files);
