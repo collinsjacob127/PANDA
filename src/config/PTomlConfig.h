@@ -33,6 +33,7 @@ public:
     // helpers
     const toml::table* resolveTable(const QString& section);
     auto findKey(const toml::table* table, const std::string& key) const;
+    bool validateNode(const toml::node& node, const QString &value, const QString& expected) const;
 
     // Operator overloads
     PTomlConfig& operator=(const PTomlConfig& other) { // Copy assignment operator

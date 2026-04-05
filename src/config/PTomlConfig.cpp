@@ -205,6 +205,19 @@ auto PTomlConfig::findKey(const toml::table* table, const std::string& key) cons
     return table->find(key);
 }
 
+bool PTomlConfig::validateNode(const toml::node& node, const QString &value, const QString& expected) const {
+    if (auto val = node.as_string()) {
+        return val->get() == expected;
+    } else if (auto val = node.as_integer()) {
+        return QString::number(val->get()) == value;
+    } else if (auto val = node.as_floating_point()) {
+        return QString::number(val->get(), 'f', 6) == value; // precision
+    } else if (auto val = node.as_boolean()) {
+        return (val->get() ? "true" : "false") == expected;
+    }
+    return false;
+}
+
 bool PTomlConfig::valueExists(const QString &value, const QString &key, const QString &section) const {
     if (value.isNull()) {
         return false;
@@ -214,7 +227,7 @@ bool PTomlConfig::valueExists(const QString &value, const QString &key, const QS
     std::string s = section.toStdString();
     const std::string expected = value.toStdString();
 
-    const toml::table* table = findNestedTable(section);
+    const toml::table* table = resolveTable(section);
     if (!table) {
         return false;
     }
@@ -227,17 +240,7 @@ bool PTomlConfig::valueExists(const QString &value, const QString &key, const QS
     // here we just cast the node to expected type and compare it to the value
     const toml::node& node = it->second;
 
-    if (auto val = node.as_string()) {
-        return val->get() == expected;
-    } else if (auto val = node.as_integer()) {
-        return QString::number(val->get()) == value;
-    } else if (auto val = node.as_floating_point()) {
-        return QString::number(val->get(), 'f', 6) == value; // precision
-    } else if (auto val = node.as_boolean()) {
-        return (val->get() ? "true" : "false") == expected;
-    }
-
-    return false;
+    return validateNode(node, value, expected);
 }
 
 
