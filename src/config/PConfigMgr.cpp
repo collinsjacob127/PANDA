@@ -11,8 +11,6 @@ PConfigMgr::PConfigMgr(QObject *parent, const QString &filepath) : QObject(paren
     
     if (!filepath.isEmpty()) {
         loadConfig(filepath);
-    } else {
-        qDebug() << "No file path provided for PConfigMgr: " << filepath;
     }
 }
 
@@ -20,8 +18,6 @@ PConfigMgr::PConfigMgr(QObject *parent, const QSharedPointer<PFileData> &fileDat
 {
     if (fileData) {
         loadConfig(fileData);
-    } else {
-        qDebug() << "No data provided for config file";
     }
 }
 
@@ -49,13 +45,11 @@ bool PConfigMgr::loadConfig(const QString &filePath)
     m_config = createParser(filePath);
 
     if (!m_config) {
-        qDebug() << "Unsupported file extension: " << ext;
         return false;
     }
 
     // first check if config exists
     if (!QFile::exists(filePath)) {
-        qDebug() << "Config file not found: " << filePath;
         // create empty config if not loaded
         m_config->initEmpty();
         m_configPath = filePath;
@@ -74,7 +68,6 @@ bool PConfigMgr::loadConfig(const QString &filePath)
 
     // Load the config file
     if (!m_config->loadConfig(filePath)) {
-        qDebug() << "Failed to load config file: " << filePath;
         return false;
     }
 
@@ -91,8 +84,6 @@ bool PConfigMgr::loadConfig(const QString &filePath)
     
     // emit dirtyChanged signal
     emit dirtyChanged(m_dirty);
-    qDebug() << filename << " loaded successfully.";
-    qDebug() << "Config path: " << m_configPath;
 
     return true;
 }
@@ -102,7 +93,6 @@ bool PConfigMgr::loadConfig(const QString &filePath)
 bool PConfigMgr::loadConfig(const QSharedPointer<PFileData> &fileData)
 {
     if (!fileData) {
-        qDebug() << "No data provided for config file";
         return false;
     }
 
@@ -110,10 +100,7 @@ bool PConfigMgr::loadConfig(const QSharedPointer<PFileData> &fileData)
     QString tempFilePath = QDir::tempPath() + "/" + fileData->filename + "." + fileData->ext;
     QFile tempFile(tempFilePath);
     if (!tempFile.open(QIODevice::WriteOnly)) {
-        qDebug() << "Failed to create temporary file: " << tempFilePath;
         return false;
-    } else {
-        qDebug() << "Temporary file created: " << tempFilePath;
     }
     tempFile.write(fileData->data);
     tempFile.close();
@@ -129,12 +116,10 @@ bool PConfigMgr::loadConfig(const QSharedPointer<PFileData> &fileData)
 bool PConfigMgr::saveConfig(const QString &filePath)
 {
     if (!m_config) {
-        qDebug() << "After trying to saveConfig, config parser not initialized";
         return false;
     }
 
     if (!m_config->saveConfig(filePath)) {
-        qDebug() << "Failed to save config file: " << filePath;
         return false;
     }
 
@@ -156,7 +141,6 @@ bool PConfigMgr::saveConfig()
 bool PConfigMgr::revertChanges()
 {
     if (!m_config) {
-        qDebug() << "Unable to revert changes: config parser not initialized";
         return false;
     }
 
@@ -173,7 +157,6 @@ bool PConfigMgr::revertChanges()
 bool PConfigMgr::clear()
 {
     if (!m_config) {
-        qDebug() << "After trying to clear(), config parser not initialized";
         return false;
     }
 
@@ -190,7 +173,6 @@ bool PConfigMgr::clear()
 QVariant PConfigMgr::getValue(const QString &section, const QString &key)
 {
     if (!m_config) {
-        qDebug() << "Tried to get key " << key << " from section [" << section << "] but config parser not initialized";
         return QVariant();
     }
 
@@ -205,7 +187,6 @@ QVariant PConfigMgr::getValue(const QString &section, const QString &key, bool g
     }
 
     if (!m_config) {
-        qDebug() << "Tried to get multiple keys " << key << " from section [" << section << "] but config parser not initialized";
         return QVariant();
     }
 
@@ -225,21 +206,18 @@ void PConfigMgr::setValue(const QString &key, const QVariant &value, const QStri
         originalValue = 0;
     }
 
-    qDebug() << "Original value: " << originalValue << " vs " << input;
     if (originalValue.toString() == input.toString()) {
         if (m_dirty > 0) {
             if (m_dirty_laundry->valueExists(originalValue.toString(), key, section)) {
                 m_dirty_laundry->removeKey(key, section);
                 m_dirty--;
                 emit dirtyChanged(m_dirty);
-                qDebug() << "Dirty laundry removed one item. Current count: " << m_dirty;
             }
         }
         return;
     }
 
     if (!m_config) {
-        qDebug() << "Tried to set key " << key << " in section [" << section << "] but config parser not initialized";
         return;
     }
 
@@ -247,7 +225,6 @@ void PConfigMgr::setValue(const QString &key, const QVariant &value, const QStri
         m_dirty++;
         m_dirty_laundry->setValue(key, originalValue, section);
         emit dirtyChanged(m_dirty);
-        qDebug() << "Dirty laundry updated. Current count: " << m_dirty;
     }
     m_config->setValue(key, input, section);
 }
@@ -256,7 +233,6 @@ void PConfigMgr::setValue(const QString &key, const QVariant &value, const QStri
 QStringList PConfigMgr::getAllKeys(const QString &section) const
 {
     if (!m_config) {
-        qDebug() << "Tried to get all keys from section [" << section << "] but config parser not initialized";
         return QStringList();
     }
 
