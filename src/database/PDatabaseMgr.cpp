@@ -68,12 +68,23 @@ bool PDatabaseMgr::createTables() {
     return true;
 }
 
-bool PDatabaseMgr::insertMod(const QString &title, const QString &description, const QStringList &authors, 
-    const QString &version, bool enabled, const QStringList &tags, const QString &category, 
-    const QString &id, const QString &depId, const QString &filename,
-    const QString &location, const QStringList &iconpaths, const QString &oglocation,
-    bool selected, QObject *parent)
+bool PDatabaseMgr::insertMod(const PModItem &mod)
                              {
+    const QString &title = mod.title();
+    const QString &description = mod.description();
+    const QStringList &authors = mod.authors();
+    const QString &version = mod.version();
+    bool enabled = mod.enabled();
+    const QStringList &tags = mod.tags();
+    const QString &category = mod.category();
+    const QString &id = mod.id();
+    const QString &depId = mod.dependencyId();
+    const QString &filename = mod.filename();
+    const QString &location = mod.currentLocation();
+    const QStringList &iconpaths = mod.iconpaths();
+    const QString &oglocation = mod.originalLocation();
+    bool selected = mod.selected();
+    QObject *parent = mod.parent();
     QSqlQuery query(m_db);
 
     // Check for missing required fields
@@ -184,8 +195,7 @@ bool PDatabaseMgr::insertMod(const QString &title, const QString &description, c
 
 // TODO: Fix tags so they insert as a list
 bool PDatabaseMgr::insertMod(const PModItem &mod) {
-    return insertMod(mod.title(), mod.description(), {mod.authors()}, mod.version(), mod.enabled(), mod.tags(), mod.category(), mod.id(), mod.dependencyId(),
-        mod.filename(), mod.location(), mod.iconpaths(), mod.oglocation(), mod.selected());
+    return insertMod(mod);
 }
 
 bool PDatabaseMgr::deleteMod(const QString &modId) {
