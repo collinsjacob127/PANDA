@@ -43,6 +43,13 @@ public:
 
 private:
 
+    enum class ModCategory {
+        Building,
+        Scenery,
+        Animals,
+        Unknown
+    };
+
     // Mod loaders
     QVector<QSharedPointer<PModItem>> buildCollectionMods(const QVector<QSharedPointer<PFileData>> &entryPoints, const QSharedPointer<PModItem> &mod, const QSharedPointer<PFile> &ztd);
     QSharedPointer<PModItem> buildModFromToml(const QSharedPointer<PConfigMgr> &config);
