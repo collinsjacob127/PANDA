@@ -53,7 +53,6 @@ void PTestConfigMgr::testLoadConfig_tempFileCleanup()
     // get list of files in temp dir before loading config
     QDir tempDir(QDir::tempPath());
     QStringList beforeFiles = tempDir.entryList(QDir::Files);
-    qDebug() << "Before files:" << beforeFiles << "\n";
 
     const QSharedPointer<PFile> fileData = QSharedPointer<PFile>::create(
         nullptr, testDataDir + "config.zip", FileType::Zip
@@ -64,7 +63,6 @@ void PTestConfigMgr::testLoadConfig_tempFileCleanup()
 
     // check dir after
     QStringList afterFiles = tempDir.entryList(QDir::Files);
-    qDebug() << "After files:" << afterFiles << "\n";
 
     QCOMPARE(beforeFiles, afterFiles);
 }

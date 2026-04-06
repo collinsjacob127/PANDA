@@ -122,8 +122,6 @@ bool PConfigMgr::loadConfig(const QSharedPointer<PFileData> &fileData)
     // note: QTemporaryFile auto deletes
     bool result = loadConfig(tempFile.fileName());
 
-    qDebug() << "Files in temp dir while in loadConfig:" << QDir(QDir::tempPath()).entryList(QDir::Files) << "\n";
-
     return result;
 }
 
