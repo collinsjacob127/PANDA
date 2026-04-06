@@ -30,6 +30,11 @@ public:
     bool keyExists(const QString &key, const QString &section) const override;
     bool valueExists(const QString &value, const QString &key, const QString &section) const override;
 
+    // helpers
+    const toml::table* resolveTable(const QString& section) const;
+    auto findKey(const toml::table* table, const std::string& key) const;
+    bool validateNode(const toml::node& node, const QString &value) const;
+
     // Operator overloads
     PTomlConfig& operator=(const PTomlConfig& other) { // Copy assignment operator
         if (this != &other) {

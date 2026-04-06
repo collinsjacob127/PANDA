@@ -184,36 +184,29 @@ bool PTomlConfig::keyExists(const QString &key, const QString &section) const {
     return false;
 }
 
-bool PTomlConfig::valueExists(const QString &value, const QString &key, const QString &section) const {
-    if (value.isNull()) {
-        return false;
-    }
-
-    std::string k = key.toStdString();
-    std::string s = section.toStdString();
-    const std::string expected = value.toStdString();
-
+const toml::table* PTomlConfig::resolveTable(const QString& section) const {
     const toml::table* table = &m_toml;
 
     // look through nested tables ("sections") first
     if (!section.isEmpty()) {
-        auto found = m_toml.find(s);
+        auto found = m_toml.find(section.toStdString());
         if (found == m_toml.end() || !found->second.is_table()) {
-            return false;
+            return nullptr;
         }
         // found a nested table, so get the table ref
         table = found->second.as_table(); 
     }
 
+    return table;
+}
+
+auto PTomlConfig::findKey(const toml::table* table, const std::string& key) const {
     // check if key exists in the table
-    auto it = table->find(k);
-    if (it == table->end()) {
-        return false;
-    }
+    return table->find(key);
+}
 
-    // here we just cast the node to expected type and compare it to the value
-    const toml::node& node = it->second;
-
+bool PTomlConfig::validateNode(const toml::node& node, const QString &value) const {
+    const std::string expected = value.toStdString();
     if (auto val = node.as_string()) {
         return val->get() == expected;
     } else if (auto val = node.as_integer()) {
@@ -223,8 +216,31 @@ bool PTomlConfig::valueExists(const QString &value, const QString &key, const QS
     } else if (auto val = node.as_boolean()) {
         return (val->get() ? "true" : "false") == expected;
     }
-
     return false;
+}
+
+bool PTomlConfig::valueExists(const QString &value, const QString &key, const QString &section) const {
+    if (value.isNull()) {
+        return false;
+    }
+
+    std::string k = key.toStdString();
+    const std::string expected = value.toStdString();
+
+    const toml::table* table = resolveTable(section);
+    if (!table) {
+        return false;
+    }
+
+    auto it = findKey(table, k);
+    if (k.empty() || it == table->end()) {
+        return false;
+    }
+
+    // here we just cast the node to expected type and compare it to the value
+    const toml::node& node = it->second;
+
+    return validateNode(node, value);
 }
 
 
