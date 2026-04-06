@@ -41,6 +41,8 @@ PModItem::PModItem(QObject *parent)
 
     // Instance
     m_ui_component = nullptr;
+
+    initializeRoleNames()
 }
 
 PModItem::PModItem(
@@ -120,6 +122,7 @@ PModItem::PModItem(
     m_ui_component = nullptr;
     m_selected = false;
     m_listed = true;
+    initializeRoleNames()
 }
 
 PModItem::PModItem(QObject *parent, const QSqlQuery &query) : QObject(parent)
@@ -158,6 +161,7 @@ PModItem::PModItem(QObject *parent, const QSqlQuery &query) : QObject(parent)
     // Graphics properties
     setIconPaths(query.value("icon_paths").toString().split(", "));
 
+    initializeRoleNames()
 }
 
 // ----------------------------------------------- Mod properties
@@ -617,10 +621,8 @@ void PModItem::setData(int role, const QVariant &value)
     }
 }
 
-QHash<int, QByteArray> PModItem::roleNames()
+void PModItem::initializeRoleNames()
 {
-    QHash<int, QByteArray> roles;
-
     // Mod properties
     roles[ModTitleRole] = "title";
     roles[ModAuthorRole] = "authors";
@@ -656,7 +658,10 @@ QHash<int, QByteArray> PModItem::roleNames()
 
     // Graphics properties
     roles[ModIconPathsRole] = "iconpaths";
+}
 
-    return roles;
+
+QHash<int, QByteArray> PModItem::roleNames() {
+  return roles;
 }
 

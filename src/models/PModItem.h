@@ -236,6 +236,10 @@ signals:
     void collectionIdChanged();
 
 private:
+    // Cached rolenames
+    QHash<int, QByteArray> roles;
+    void initializeRoleNames();
+
     // Mod properties
     int m_index;
     QString m_title;
