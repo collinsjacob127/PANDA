@@ -94,36 +94,36 @@ public:
     PModItem(
         // Mod properties
         const QString &title, 
-        const QString &description, 
-        const QStringList &authors, 
-        const QString &version, 
-        const QString &id, 
-        const QString &link,
+        const QString &description=QString(), 
+        const QStringList &authors=QString(), 
+        const QString &version=QString(), 
+        const QString &id=QString(), 
+        const QString &link=Qstring(),
 
         // Mod flags
-        bool enabled, 
-        bool selected, 
-        bool listed, 
-        bool isCollection,
+        bool enabled=false, 
+        bool selected=false, 
+        bool listed=false, 
+        bool isCollection=false,
 
         // Categorization properties
-        const QStringList &tags, 
-        const QString &category, 
+        const QStringList &tags=QStringList(), 
+        const QString &category=QString(), 
 
         // External properties
-        const QString &depId, 
-        const QString &collectionId,
+        const QString &depId=QString(), 
+        const QString &collectionId=QString(),
 
         // File data properties
-        const QString &filename,
-        const QString &currentLocation, 
-        const QString &originalLocation, 
-        const QString &disabledLocation, 
-        const QString &fileSize,
-        const QString &fileDate,
+        const QString &filename=QString(),
+        const QString &currentLocation=QString(), 
+        const QString &originalLocation=QString(), 
+        const QString &disabledLocation=QString(), 
+        const QString &fileSize=QString(),
+        const QString &fileDate=QString(),
 
         // Graphics properties
-        const QStringList &iconpaths, 
+        const QStringList &iconpaths=Qstring(), 
 
         // Instance
         QObject *parent = nullptr
