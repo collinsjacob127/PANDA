@@ -1,5 +1,7 @@
 #include <QtTest/QtTest>
 #include "PConfigMgr.h"
+#include "PFile.h"
+#include <QtConcurrent/QtConcurrent>
 
 class PTestConfigMgr : public QObject
 {
@@ -7,6 +9,8 @@ class PTestConfigMgr : public QObject
 private slots:
     void testLoadConfig_data();
     void testLoadConfig();
+    void testLoadConfig_tempFileCleanup();
+    void testLoadConfig_parallelNoConflicts();
     void testSaveConfig_data();
     void testSaveConfig();
     void testGetValue_INI_data();
@@ -41,6 +45,53 @@ void PTestConfigMgr::testLoadConfig()
     bool result = configMgr.loadConfig(filePath);
 
     QCOMPARE(result, expected);
+}
+
+// tests that temp files created with QTemporaryFile are cleaned up
+void PTestConfigMgr::testLoadConfig_tempFileCleanup()
+{
+    // get list of files in temp dir before loading config
+    QDir tempDir(QDir::tempPath());
+    QStringList beforeFiles = tempDir.entryList(QDir::Files);
+    qDebug() << "Before files:" << beforeFiles << "\n";
+
+    const QSharedPointer<PFile> fileData = QSharedPointer<PFile>::create(
+        nullptr, testDataDir + "config.zip", FileType::Zip
+    );
+    QSharedPointer<PFileData> fileDataPtr = fileData->read("config.ini");
+    PConfigMgr configMgr;
+    configMgr.loadConfig(fileDataPtr);
+
+    // check dir after
+    QStringList afterFiles = tempDir.entryList(QDir::Files);
+    qDebug() << "After files:" << afterFiles << "\n";
+
+    QCOMPARE(beforeFiles, afterFiles);
+}
+
+// program in parallel to ensure no collisions with temp files created by QTemporaryFile
+void PTestConfigMgr::testLoadConfig_parallelNoConflicts()
+{
+    const int numThreads = 10;
+    QList<bool> results(numThreads);
+    QVector<QFuture<void>> futures;
+
+    for (int i = 0; i < numThreads; ++i) {
+        futures.append(QtConcurrent::run([&, i]() {
+            PConfigMgr configMgr;
+            results[i] = configMgr.loadConfig(testDataDir + "config.ini");
+        }));
+    }
+
+    // wait for all to finish
+    for (auto &future : futures) {
+        future.waitForFinished();
+    }
+
+    // check results
+    for (bool result : results) {
+        QVERIFY(result);
+    }
 }
 
 // INI config test data

@@ -5,7 +5,12 @@ const QString m_metaConfigName = "meta.toml";
 const QString m_configDirPath = QDir::homePath() + "/.config/PandaLdr/"; // temporary
 const QString m_metaConfigDirPath = m_configDirPath + "meta_configs/"; // temporary
 
-PConfigMgr::PConfigMgr(QObject *parent, const QString &filepath) : QObject(parent), m_dirty(0), m_config(nullptr), m_configBackup(nullptr), m_dirty_laundry(nullptr)
+PConfigMgr::PConfigMgr(QObject *parent, const QString &filepath) 
+    : QObject(parent), 
+    m_dirty(0), 
+    m_config(nullptr), 
+    m_configBackup(nullptr), 
+    m_dirty_laundry(nullptr)
 {
     m_dirty = 0;
     
@@ -97,17 +102,27 @@ bool PConfigMgr::loadConfig(const QSharedPointer<PFileData> &fileData)
     }
 
     // Create a temporary file to load the config from
-    QString tempFilePath = QDir::tempPath() + "/" + fileData->filename + "." + fileData->ext;
-    QFile tempFile(tempFilePath);
-    if (!tempFile.open(QIODevice::WriteOnly)) {
+    QTemporaryFile tempFile(
+        QDir::tempPath() + 
+        QDir::separator() + 
+        fileData->filename + 
+        "XXXXXX." + 
+        fileData->ext
+    );
+
+    if (!tempFile.open()) {
         return false;
     }
+
+    // write data to tempFile and write to disk
     tempFile.write(fileData->data);
-    tempFile.close();
+    tempFile.flush();
 
     // Load the config from the temporary file
-    bool result = loadConfig(tempFilePath);
-    QFile::remove(tempFilePath); // Remove the temporary file
+    // note: QTemporaryFile auto deletes
+    bool result = loadConfig(tempFile.fileName());
+
+    qDebug() << "Files in temp dir while in loadConfig:" << QDir(QDir::tempPath()).entryList(QDir::Files) << "\n";
 
     return result;
 }
