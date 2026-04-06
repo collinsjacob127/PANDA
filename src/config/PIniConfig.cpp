@@ -78,14 +78,6 @@ bool PIniConfig::removeKey(const QString &key, const QString &section) {
     return true;
 }
 
-bool PIniConfig::removeSection(const QString &section) {
-    return false;
-}
-
-bool PIniConfig::getAllSections() {
-    return false;
-}
-
 QStringList PIniConfig::getAllKeys(const QString &section) {
     CSimpleIniA::TNamesDepend keys;
     m_ini.GetAllKeys(section.toStdString().c_str(), keys);
@@ -222,10 +214,10 @@ QVariant PIniConfig::extractVariant(const QString& query) const {
 
     // at this point assume it is a string,
     // but check if it is a boolean string
-    if (query == "true") {
-        return 1;
-    } else if (query == "false") {
-        return 0;
+    if (query.lower() == "true") {
+        return true;
+    } else if (query.lower() == "false") {
+        return false;
     }
 
     return QVariant(query); // interpret as string
