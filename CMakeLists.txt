@@ -304,32 +304,40 @@ add_custom_command(TARGET testFileSystem POST_BUILD
 )
 
 # ------------- PTestConfigMgr -------------
-# qt_add_executable(testConfigMgr
-#     tests/PTestConfigMgr.cpp
-#     src/ldrs/PConfigMgr.cpp src/ldrs/PConfigMgr.h
-#     src/interfaces/IConfigLoader.h src/interfaces/IConfigLoader.cpp
-#     src/ldrs/PIniConfig.cpp src/ldrs/PIniConfig.h
-#     src/ldrs/PTomlConfig.cpp src/ldrs/PTomlConfig.h
+qt_add_executable(testConfigMgr
+    tests/PTestConfigMgr.cpp
+    src/config/IConfigLoader.h
+    src/config/PConfigMgr.cpp src/config/PConfigMgr.h
+    src/config/PIniConfig.cpp src/config/PIniConfig.h
+    src/config/PTomlConfig.cpp src/config/PTomlConfig.h
+    src/models/PFileData.h
 
-# )
+)
 
-# # link the required libraries
-# target_link_libraries(testConfigMgr
-#     PRIVATE
-#         Qt6::Test
-#         Qt6::Core
-#         Qt6::Sql
-#         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
-#         tomlplusplus
-#         simpleini
-# )
+target_include_directories(testConfigMgr
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/config
+        ${CMAKE_SOURCE_DIR}/src/models
+)
 
-# # add test data as resource
-# add_custom_command(TARGET testConfigMgr POST_BUILD
-#     COMMAND ${CMAKE_COMMAND} -E copy_directory
-#     ${CMAKE_SOURCE_DIR}/tests/test_data
-#     ${CMAKE_BINARY_DIR}/test_data
-# )
+# link the required libraries
+target_link_libraries(testConfigMgr
+    PRIVATE
+        Qt6::Test
+        Qt6::Core
+        Qt6::Sql
+        ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+        tomlplusplus
+        simpleini
+)
+
+# add test data as resource
+add_custom_command(TARGET testConfigMgr POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/tests/test_data
+    ${CMAKE_BINARY_DIR}/test_data
+)
 
 # # ------------- PTestDatabaseMgr -------------
 # qt_add_executable(testDatabaseMgr
@@ -600,6 +608,6 @@ add_test(NAME testModController COMMAND testModController)
 add_test(NAME testAppController COMMAND testAppController)
 add_test(NAME testLauncher COMMAND testLauncher)
 
-# add_test(NAME testConfigMgr COMMAND testConfigMgr)
+add_test(NAME testConfigMgr COMMAND testConfigMgr)
 # # add_test(NAME testDatabaseMgr COMMAND testDatabaseMgr)
 # add_test(NAME testGraphicsMgr COMMAND testGraphicsMgr)

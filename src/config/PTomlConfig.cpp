@@ -64,7 +64,6 @@ QVariant PTomlConfig::getValue(const QString &section, const QString &key) const
     if (!section.isEmpty()) {
         auto found = m_toml.find(s);
         if (found == m_toml.end() || !found->second.is_table()) {
-            qDebug() << "Section not found or not a table:" << section;
             return QVariant();
         }
         table = found->second.as_table();
