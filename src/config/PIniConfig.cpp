@@ -78,14 +78,6 @@ bool PIniConfig::removeKey(const QString &key, const QString &section) {
     return true;
 }
 
-bool PIniConfig::removeSection(const QString &section) {
-    return false;
-}
-
-bool PIniConfig::getAllSections() {
-    return false;
-}
-
 QStringList PIniConfig::getAllKeys(const QString &section) {
     CSimpleIniA::TNamesDepend keys;
     m_ini.GetAllKeys(section.toStdString().c_str(), keys);
