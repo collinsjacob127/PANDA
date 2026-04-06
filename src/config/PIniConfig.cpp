@@ -214,10 +214,10 @@ QVariant PIniConfig::extractVariant(const QString& query) const {
 
     // at this point assume it is a string,
     // but check if it is a boolean string
-    if (query == "true") {
-        return 1;
-    } else if (query == "false") {
-        return 0;
+    if (query.lower() == "true") {
+        return true;
+    } else if (query.lower() == "false") {
+        return false;
     }
 
     return QVariant(query); // interpret as string
