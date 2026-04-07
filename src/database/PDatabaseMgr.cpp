@@ -463,6 +463,7 @@ QSharedPointer<PModItem> PDatabaseMgr::getModByPk(const QString &modId) {
 }
 
 // Grabs mods from ZTDs and stores them in database
+// TODO: Move the TODO list from src to github issues
 // TODO: Add any errors to a list of errors to display to user
 // TODO: Add a check to see if mod already exists in database
 // TODO: Add meta.toml file to ztd if it doesn't exist
