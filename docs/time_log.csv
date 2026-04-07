@@ -1,0 +1,12 @@
+Issue,Triage/Understand,Plan,Implement,Verify,PR Overhead,Review Time,Rework after review
+Issue #32,15 min,5 min,20 min,5 min,30 min,5 min,0 min
+Issue #33,5 min,5 min,3 min ,2 min,15 min,10 min,0 min
+Issue #34,15 min,2 hrs,30 min,30 min,45 min,30 min,0 min
+Issue #36,5 min,5 min,1 min,1 min,20 min,15 min,5 min
+Issue #35,5 min,10 min,15 min,0 min,30 min,8 min,0 min
+Issue #26,10 min,15 min,5 min,10 min,15 min,15 min,5 min
+Issue #28,10 min,10 min,20 min,10 min,20 min,5 min,0 min
+Issue #27,15 min,15 min,30 min,15 min,15 min,15 min,5 min
+Issue #30,15 min,15 min,15 min,1 min,5 min,3 min,0 min
+Issue #29,15 min,30 min,30 min,30 min,20 min,15 min,0 min
+Issue #31,15 min,15 min,15 min,30 min,20 min,8 min,10 min
