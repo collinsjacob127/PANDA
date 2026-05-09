@@ -23,15 +23,16 @@ enum FileType {
 /**
  * @brief Factory to delegate construction of IVirtualFilesystems for PFile::createFilesystem
  */
-class PIVirtualFilesystemFactory {
+class PIFilesystemFactory {
 public:
-  virtual ~PIVirtualFilesystemFactory() {}
+  PIFilesystemFactory() = delete;
 
-  virtual std::unique_ptr<IVirtualFilesystem> createFilesystem(const QString &path, FileType type) const {
-    if (type == FileType::Zip) {
+  static std::unique_ptr<IVirtualFilesystem> createFilesystem(const QString &path, FileType type) const {
+    switch (type) {
+      case FileType::Zip:
         qDebug() << "Creating PZip filesystem for path:" << path;
         return std::make_unique<PZip>(path);
-    } else {
+      default:
         qDebug() << "Creating PFileSystem filesystem for path:" << path;
         return std::make_unique<PFileSystem>();
     }
