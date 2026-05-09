@@ -98,7 +98,7 @@ public:
         const QStringList &authors=QStringList(),
         const QString &version=QString(),
         const QString &id=QString(),
-        const QStringList &link=QStringList(),
+        const QString &link=QString(),
 
         // Mod flags
         bool enabled=false,
