@@ -9,13 +9,7 @@ PFile::PFile(QObject *parent, const QString &filePath, FileType type)
 // Create a virtual filesystem object
 std::unique_ptr<IVirtualFilesystem> PFile::createFilesystem(const QString &path, FileType type) const
 {
-    if (type == FileType::Zip) {
-        qDebug() << "Creating PZip filesystem for path:" << path;
-        return std::make_unique<PZip>(path);
-    } else {
-        qDebug() << "Creating PFileSystem filesystem for path:" << path;
-        return std::make_unique<PFileSystem>();
-    }
+  return IVirtualFilesystemFactory::createFilesystem(path, type);
 }
 
 QSharedPointer<PFileData> PFile::read(const QString &relFilePath) {
