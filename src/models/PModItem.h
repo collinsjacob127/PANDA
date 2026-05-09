@@ -123,7 +123,7 @@ public:
         const QString &fileDate=QString(),
 
         // Graphics properties
-        const QStringList &iconpaths=Qstring(),
+        const QStringList &iconpaths=QStringList(),
 
         // Instance
         QObject *parent = nullptr
