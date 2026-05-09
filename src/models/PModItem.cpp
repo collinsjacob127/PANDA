@@ -619,7 +619,7 @@ void PModItem::setData(int role, const QVariant &value)
         default:
             qDebug() << "Unknown role: " << role;
     }
-}
+} 
 
 void PModItem::initializeRoleNames()
 {
