@@ -214,9 +214,9 @@ QVariant PIniConfig::extractVariant(const QString& query) const {
 
     // at this point assume it is a string,
     // but check if it is a boolean string
-    if (query.isLower() == "true") {
+    if (query.isLower()) {
         return true;
-    } else if (query.isLower() == "false") {
+    } else if (query.isLower()) {
         return false;
     }
 
