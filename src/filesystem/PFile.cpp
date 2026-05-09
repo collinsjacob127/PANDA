@@ -9,7 +9,7 @@ PFile::PFile(QObject *parent, const QString &filePath, FileType type)
 // Create a virtual filesystem object
 std::unique_ptr<IVirtualFilesystem> PFile::createFilesystem(const QString &path, FileType type) const
 {
-  return PIFilesystemFactory::createFilesystem(path, type);
+  return IVirtualFilesystemFactory::createFilesystem(path, type);
 }
 
 QSharedPointer<PFileData> PFile::read(const QString &relFilePath) {
