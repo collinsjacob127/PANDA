@@ -238,7 +238,7 @@ signals:
 private:
     // Cached rolenames
     QHash<int, QByteArray> roles;
-    QHash<int, QByteArray> initializeRoleNames();
+    void initializeRoleNames();
 
     // Mod properties
     int m_index;

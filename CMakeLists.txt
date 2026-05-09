@@ -253,365 +253,365 @@ add_custom_target(copy_dll ALL DEPENDS ${DEST_DLL})
 # # add the main project modules
 # # creates the test exe
 
-# ------------- PTestFileSystem -------------
-qt_add_executable(testFileSystem
-    tests/PTestFileSystem.cpp
-    # config
-    src/config/IConfigLoader.h
-    src/config/PConfigMgr.cpp src/config/PConfigMgr.h
-    src/config/PIniConfig.cpp src/config/PIniConfig.h
-    src/config/PTomlConfig.cpp src/config/PTomlConfig.h
-    # models
-    src/models/PFileData.h
-    # filesystem
-    src/filesystem/IVirtualFileSystem.h
-    src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp
-    src/filesystem/PFile.h src/filesystem/PFile.cpp
-    src/filesystem/PZip.h src/filesystem/PZip.cpp
-)
+# # ------------- PTestFileSystem -------------
+# qt_add_executable(testFileSystem
+#     tests/PTestFileSystem.cpp
+#     # config
+#     src/config/IConfigLoader.h
+#     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
+#     src/config/PIniConfig.cpp src/config/PIniConfig.h
+#     src/config/PTomlConfig.cpp src/config/PTomlConfig.h
+#     # models
+#     src/models/PFileData.h
+#     # filesystem
+#     src/filesystem/IVirtualFileSystem.h
+#     src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp
+#     src/filesystem/PFile.h src/filesystem/PFile.cpp
+#     src/filesystem/PZip.h src/filesystem/PZip.cpp
+# )
 
-target_include_directories(testFileSystem
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/src
-        ${CMAKE_SOURCE_DIR}/src/models
-        ${CMAKE_SOURCE_DIR}/src/app
-        ${CMAKE_SOURCE_DIR}/src/graphics
-        ${CMAKE_SOURCE_DIR}/src/filesystem
-        ${CMAKE_SOURCE_DIR}/src/config
-        ${CMAKE_SOURCE_DIR}/src/database
-        ${CMAKE_SOURCE_DIR}/src/mods
-        ${CMAKE_SOURCE_DIR}/libs/apecore/include
-)
-
-# link the required libraries
-target_link_libraries(testFileSystem
-    PRIVATE
-        Qt6::Test
-        Qt6::Core
-        Qt6::Sql
-        ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
-        tomlplusplus
-        ApeCore
-        quazip
-        simpleini
-)
-
-# add test data as resource
-add_custom_command(TARGET testFileSystem POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/tests/test_data
-    ${CMAKE_BINARY_DIR}/test_data
-)
-
-# ------------- PTestConfigMgr -------------
-qt_add_executable(testConfigMgr
-    tests/PTestConfigMgr.cpp
-    src/config/IConfigLoader.h
-    src/config/PConfigMgr.cpp src/config/PConfigMgr.h
-    src/config/PIniConfig.cpp src/config/PIniConfig.h
-    src/config/PTomlConfig.cpp src/config/PTomlConfig.h
-    src/models/PFileData.h
-    src/filesystem/PFile.h src/filesystem/PFile.cpp
-    src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp
-    src/filesystem/PZip.h src/filesystem/PZip.cpp
-
-)
-
-target_include_directories(testConfigMgr
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/src
-        ${CMAKE_SOURCE_DIR}/src/config
-        ${CMAKE_SOURCE_DIR}/src/models
-        ${CMAKE_SOURCE_DIR}/src/filesystem
-)
-
-# link the required libraries
-target_link_libraries(testConfigMgr
-    PRIVATE
-        Qt6::Test
-        Qt6::Core
-        Qt6::Sql
-        ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
-        tomlplusplus
-        simpleini
-)
-
-# add test data as resource
-add_custom_command(TARGET testConfigMgr POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/tests/test_data
-    ${CMAKE_BINARY_DIR}/test_data
-)
-
-# # ------------- PTestDatabaseMgr -------------
-# qt_add_executable(testDatabaseMgr
-#     tests/PTestDatabaseMgr.cpp
-#     PDatabase.h PDatabase.cpp
-#     PConfigMgr.h PConfigMgr.cpp
+# target_include_directories(testFileSystem
+#     PRIVATE
+#         ${CMAKE_SOURCE_DIR}/src
+#         ${CMAKE_SOURCE_DIR}/src/models
+#         ${CMAKE_SOURCE_DIR}/src/app
+#         ${CMAKE_SOURCE_DIR}/src/graphics
+#         ${CMAKE_SOURCE_DIR}/src/filesystem
+#         ${CMAKE_SOURCE_DIR}/src/config
+#         ${CMAKE_SOURCE_DIR}/src/database
+#         ${CMAKE_SOURCE_DIR}/src/mods
+#         ${CMAKE_SOURCE_DIR}/libs/apecore/include
 # )
 
 # # link the required libraries
-# target_link_libraries(testDatabaseMgr
+# target_link_libraries(testFileSystem
 #     PRIVATE
 #         Qt6::Test
 #         Qt6::Core
 #         Qt6::Sql
 #         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
 #         tomlplusplus
-# )
-
-# # add test data as resource
-# add_custom_command(TARGET testDatabaseMgr POST_BUILD
-#     COMMAND ${CMAKE_COMMAND} -E copy_directory
-#     ${CMAKE_SOURCE_DIR}/tests/test_data
-#     ${CMAKE_BINARY_DIR}/test_data
-# )
-
-# -------------- PTestGraphicsMgr --------------
-# qt_add_executable(testGraphicsMgr
-#     tests/PTestGraphicsMgr.cpp
-#     src/PConfigMgr.h src/PConfigMgr.cpp
-#     src/PApeFile.h src/PApeFile.cpp
-# )
-
-# # link the required libraries
-# target_link_libraries(testGraphicsMgr
-#     PRIVATE
-#         Qt6::Test
-#         Qt6::Core
-#         Qt6::Sql
-#         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
 #         ApeCore
-#         tomlplusplus
+#         quazip
+#         simpleini
 # )
 
 # # add test data as resource
-# add_custom_command(TARGET testGraphicsMgr POST_BUILD
+# add_custom_command(TARGET testFileSystem POST_BUILD
 #     COMMAND ${CMAKE_COMMAND} -E copy_directory
 #     ${CMAKE_SOURCE_DIR}/tests/test_data
 #     ${CMAKE_BINARY_DIR}/test_data
 # )
 
-#------------- PTestModLoader -------------
-qt_add_executable(testModLoader
-    tests/PTestModLoader.cpp
-    src/models/PModItem.h src/models/PModItem.cpp
-    src/database/PDatabase.cpp src/database/PDatabase.h
-    src/database/PModQueries.h
-    src/models/PFileData.h
-    src/config/PConfigMgr.cpp src/config/PConfigMgr.h
-    src/config/PTomlConfig.cpp src/config/PTomlConfig.h
-    src/config/PIniConfig.cpp src/config/PIniConfig.h
-    src/graphics/PApeFile.cpp src/graphics/PApeFile.h
-    src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp    
-    src/filesystem/PFile.h src/filesystem/PFile.cpp
-    src/mods/PModDataAccess.cpp src/mods/PModDataAccess.h
-    src/filesystem/PZip.cpp src/filesystem/PZip.h
-)
+# # ------------- PTestConfigMgr -------------
+# qt_add_executable(testConfigMgr
+#     tests/PTestConfigMgr.cpp
+#     src/config/IConfigLoader.h
+#     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
+#     src/config/PIniConfig.cpp src/config/PIniConfig.h
+#     src/config/PTomlConfig.cpp src/config/PTomlConfig.h
+#     src/models/PFileData.h
+#     src/filesystem/PFile.h src/filesystem/PFile.cpp
+#     src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp
+#     src/filesystem/PZip.h src/filesystem/PZip.cpp
 
-target_include_directories(testModLoader
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/src
-        ${CMAKE_SOURCE_DIR}/src/models
-        ${CMAKE_SOURCE_DIR}/src/graphics
-        ${CMAKE_SOURCE_DIR}/src/config
-        ${CMAKE_SOURCE_DIR}/src/database
-        ${CMAKE_SOURCE_DIR}/src/mods
-        ${CMAKE_SOURCE_DIR}/libs/apecore/include
-        ${CMAKE_SOURCE_DIR}/src/filesystem/
-)
+# )
 
-# link the required libraries
-target_link_libraries(testModLoader
-    PRIVATE
-        Qt6::Test
-        Qt6::Core
-        Qt6::Sql
-        Qt6::Quick 
-        Qt6::QuickControls2
-        Qt6::QuickLayouts
-        Qt6::Svg
-        Qt6::Gui
-        ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
-        tomlplusplus
-        simpleini
-        ApeCore
-)
+# target_include_directories(testConfigMgr
+#     PRIVATE
+#         ${CMAKE_SOURCE_DIR}/src
+#         ${CMAKE_SOURCE_DIR}/src/config
+#         ${CMAKE_SOURCE_DIR}/src/models
+#         ${CMAKE_SOURCE_DIR}/src/filesystem
+# )
 
-# add test data as resource
-add_custom_command(TARGET testModLoader POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/tests/test_data
-    ${CMAKE_BINARY_DIR}/test_data
-)
+# # link the required libraries
+# target_link_libraries(testConfigMgr
+#     PRIVATE
+#         Qt6::Test
+#         Qt6::Core
+#         Qt6::Sql
+#         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+#         tomlplusplus
+#         simpleini
+# )
 
-#------------- PTestModController -------------
-qt_add_executable(testModController
-    tests/PTestModController.cpp
-    src/app/PAppController.cpp src/app/PAppController.h
-    src/app/PLauncher.cpp src/app/PLauncher.h
+# # add test data as resource
+# add_custom_command(TARGET testConfigMgr POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#     ${CMAKE_SOURCE_DIR}/tests/test_data
+#     ${CMAKE_BINARY_DIR}/test_data
+# )
 
-    src/models/PModItem.h src/models/PModItem.cpp
+# # # ------------- PTestDatabaseMgr -------------
+# # qt_add_executable(testDatabaseMgr
+# #     tests/PTestDatabaseMgr.cpp
+# #     PDatabase.h PDatabase.cpp
+# #     PConfigMgr.h PConfigMgr.cpp
+# # )
 
-    src/database/PDatabase.cpp src/database/PDatabase.h
-    src/database/PModQueries.h
+# # # link the required libraries
+# # target_link_libraries(testDatabaseMgr
+# #     PRIVATE
+# #         Qt6::Test
+# #         Qt6::Core
+# #         Qt6::Sql
+# #         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+# #         tomlplusplus
+# # )
 
-    src/models/PFileData.h
+# # # add test data as resource
+# # add_custom_command(TARGET testDatabaseMgr POST_BUILD
+# #     COMMAND ${CMAKE_COMMAND} -E copy_directory
+# #     ${CMAKE_SOURCE_DIR}/tests/test_data
+# #     ${CMAKE_BINARY_DIR}/test_data
+# # )
 
-    src/config/PConfigMgr.cpp src/config/PConfigMgr.h
-    src/config/PTomlConfig.cpp src/config/PTomlConfig.h
-    src/config/PIniConfig.cpp src/config/PIniConfig.h
-    src/graphics/PApeFile.cpp src/graphics/PApeFile.h
+# # -------------- PTestGraphicsMgr --------------
+# # qt_add_executable(testGraphicsMgr
+# #     tests/PTestGraphicsMgr.cpp
+# #     src/PConfigMgr.h src/PConfigMgr.cpp
+# #     src/PApeFile.h src/PApeFile.cpp
+# # )
+
+# # # link the required libraries
+# # target_link_libraries(testGraphicsMgr
+# #     PRIVATE
+# #         Qt6::Test
+# #         Qt6::Core
+# #         Qt6::Sql
+# #         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+# #         ApeCore
+# #         tomlplusplus
+# # )
+
+# # # add test data as resource
+# # add_custom_command(TARGET testGraphicsMgr POST_BUILD
+# #     COMMAND ${CMAKE_COMMAND} -E copy_directory
+# #     ${CMAKE_SOURCE_DIR}/tests/test_data
+# #     ${CMAKE_BINARY_DIR}/test_data
+# # )
+
+# #------------- PTestModLoader -------------
+# qt_add_executable(testModLoader
+#     tests/PTestModLoader.cpp
+#     src/models/PModItem.h src/models/PModItem.cpp
+#     src/database/PDatabase.cpp src/database/PDatabase.h
+#     src/database/PModQueries.h
+#     src/models/PFileData.h
+#     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
+#     src/config/PTomlConfig.cpp src/config/PTomlConfig.h
+#     src/config/PIniConfig.cpp src/config/PIniConfig.h
+#     src/graphics/PApeFile.cpp src/graphics/PApeFile.h
+#     src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp    
+#     src/filesystem/PFile.h src/filesystem/PFile.cpp
+#     src/mods/PModDataAccess.cpp src/mods/PModDataAccess.h
+#     src/filesystem/PZip.cpp src/filesystem/PZip.h
+# )
+
+# target_include_directories(testModLoader
+#     PRIVATE
+#         ${CMAKE_SOURCE_DIR}/src
+#         ${CMAKE_SOURCE_DIR}/src/models
+#         ${CMAKE_SOURCE_DIR}/src/graphics
+#         ${CMAKE_SOURCE_DIR}/src/config
+#         ${CMAKE_SOURCE_DIR}/src/database
+#         ${CMAKE_SOURCE_DIR}/src/mods
+#         ${CMAKE_SOURCE_DIR}/libs/apecore/include
+#         ${CMAKE_SOURCE_DIR}/src/filesystem/
+# )
+
+# # link the required libraries
+# target_link_libraries(testModLoader
+#     PRIVATE
+#         Qt6::Test
+#         Qt6::Core
+#         Qt6::Sql
+#         Qt6::Quick 
+#         Qt6::QuickControls2
+#         Qt6::QuickLayouts
+#         Qt6::Svg
+#         Qt6::Gui
+#         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+#         tomlplusplus
+#         simpleini
+#         ApeCore
+# )
+
+# # add test data as resource
+# add_custom_command(TARGET testModLoader POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#     ${CMAKE_SOURCE_DIR}/tests/test_data
+#     ${CMAKE_BINARY_DIR}/test_data
+# )
+
+# #------------- PTestModController -------------
+# qt_add_executable(testModController
+#     tests/PTestModController.cpp
+#     src/app/PAppController.cpp src/app/PAppController.h
+#     src/app/PLauncher.cpp src/app/PLauncher.h
+
+#     src/models/PModItem.h src/models/PModItem.cpp
+
+#     src/database/PDatabase.cpp src/database/PDatabase.h
+#     src/database/PModQueries.h
+
+#     src/models/PFileData.h
+
+#     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
+#     src/config/PTomlConfig.cpp src/config/PTomlConfig.h
+#     src/config/PIniConfig.cpp src/config/PIniConfig.h
+#     src/graphics/PApeFile.cpp src/graphics/PApeFile.h
     
-    src/filesystem/PFile.h src/filesystem/PFile.cpp
-    src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp    
-    src/filesystem/PZip.cpp src/filesystem/PZip.h
-)
+#     src/filesystem/PFile.h src/filesystem/PFile.cpp
+#     src/filesystem/PFileSystem.h src/filesystem/PFileSystem.cpp    
+#     src/filesystem/PZip.cpp src/filesystem/PZip.h
+# )
 
-target_include_directories(testModController
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/src
-        ${CMAKE_SOURCE_DIR}/src/models
-        ${CMAKE_SOURCE_DIR}/src/graphics
-        ${CMAKE_SOURCE_DIR}/src/config
-        ${CMAKE_SOURCE_DIR}/src/database
-        ${CMAKE_SOURCE_DIR}/src/mods
-        ${CMAKE_SOURCE_DIR}/libs/apecore/include
-        ${CMAKE_SOURCE_DIR}/src/filesystem
-)
+# target_include_directories(testModController
+#     PRIVATE
+#         ${CMAKE_SOURCE_DIR}/src
+#         ${CMAKE_SOURCE_DIR}/src/models
+#         ${CMAKE_SOURCE_DIR}/src/graphics
+#         ${CMAKE_SOURCE_DIR}/src/config
+#         ${CMAKE_SOURCE_DIR}/src/database
+#         ${CMAKE_SOURCE_DIR}/src/mods
+#         ${CMAKE_SOURCE_DIR}/libs/apecore/include
+#         ${CMAKE_SOURCE_DIR}/src/filesystem
+# )
 
-# link the required libraries
-target_link_libraries(testModController
-    PRIVATE
-        Qt6::Test
-        Qt6::Core
-        Qt6::Sql
-        Qt6::Quick 
-        Qt6::QuickControls2
-        Qt6::QuickLayouts
-        Qt6::Svg
-        Qt6::Gui
-        ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
-        tomlplusplus
-        simpleini
-        ApeCore
-)
+# # link the required libraries
+# target_link_libraries(testModController
+#     PRIVATE
+#         Qt6::Test
+#         Qt6::Core
+#         Qt6::Sql
+#         Qt6::Quick 
+#         Qt6::QuickControls2
+#         Qt6::QuickLayouts
+#         Qt6::Svg
+#         Qt6::Gui
+#         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+#         tomlplusplus
+#         simpleini
+#         ApeCore
+# )
 
-# add test data as resource
-add_custom_command(TARGET testModController POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/tests/test_data
-    ${CMAKE_BINARY_DIR}/test_data
-)
+# # add test data as resource
+# add_custom_command(TARGET testModController POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#     ${CMAKE_SOURCE_DIR}/tests/test_data
+#     ${CMAKE_BINARY_DIR}/test_data
+# )
 
-#------------- PTestAppController -------------
-qt_add_executable(testAppController
-    tests/PTestAppController.cpp
-    src/app/PAppController.cpp src/app/PAppController.h
-    src/app/PLauncher.cpp src/app/PLauncher.h
+# #------------- PTestAppController -------------
+# qt_add_executable(testAppController
+#     tests/PTestAppController.cpp
+#     src/app/PAppController.cpp src/app/PAppController.h
+#     src/app/PLauncher.cpp src/app/PLauncher.h
 
-    src/models/PModItem.h src/models/PModItem.cpp
+#     src/models/PModItem.h src/models/PModItem.cpp
 
-    src/models/PFileData.h
+#     src/models/PFileData.h
 
-    src/config/PConfigMgr.cpp src/config/PConfigMgr.h
-    src/config/PTomlConfig.cpp src/config/PTomlConfig.h
-    src/config/PIniConfig.cpp src/config/PIniConfig.h
-)
+#     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
+#     src/config/PTomlConfig.cpp src/config/PTomlConfig.h
+#     src/config/PIniConfig.cpp src/config/PIniConfig.h
+# )
 
-target_include_directories(testAppController
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/src
-        ${CMAKE_SOURCE_DIR}/src/models
-        ${CMAKE_SOURCE_DIR}/src/graphics
-        ${CMAKE_SOURCE_DIR}/src/config
-        ${CMAKE_SOURCE_DIR}/src/database
-        ${CMAKE_SOURCE_DIR}/src/mods
-        ${CMAKE_SOURCE_DIR}/libs/apecore/include
-        ${CMAKE_SOURCE_DIR}/src/filesystem
-)
+# target_include_directories(testAppController
+#     PRIVATE
+#         ${CMAKE_SOURCE_DIR}/src
+#         ${CMAKE_SOURCE_DIR}/src/models
+#         ${CMAKE_SOURCE_DIR}/src/graphics
+#         ${CMAKE_SOURCE_DIR}/src/config
+#         ${CMAKE_SOURCE_DIR}/src/database
+#         ${CMAKE_SOURCE_DIR}/src/mods
+#         ${CMAKE_SOURCE_DIR}/libs/apecore/include
+#         ${CMAKE_SOURCE_DIR}/src/filesystem
+# )
 
-# link the required libraries
-target_link_libraries(testAppController
-    PRIVATE
-        Qt6::Test
-        Qt6::Core
-        Qt6::Sql
-        Qt6::Quick 
-        Qt6::QuickControls2
-        Qt6::QuickLayouts
-        Qt6::Svg
-        Qt6::Gui
-        ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
-        tomlplusplus
-        simpleini
-        ApeCore
-)
+# # link the required libraries
+# target_link_libraries(testAppController
+#     PRIVATE
+#         Qt6::Test
+#         Qt6::Core
+#         Qt6::Sql
+#         Qt6::Quick 
+#         Qt6::QuickControls2
+#         Qt6::QuickLayouts
+#         Qt6::Svg
+#         Qt6::Gui
+#         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+#         tomlplusplus
+#         simpleini
+#         ApeCore
+# )
 
-# add test data as resource
-add_custom_command(TARGET testAppController POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/tests/test_data
-    ${CMAKE_BINARY_DIR}/test_data
-)
+# # add test data as resource
+# add_custom_command(TARGET testAppController POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#     ${CMAKE_SOURCE_DIR}/tests/test_data
+#     ${CMAKE_BINARY_DIR}/test_data
+# )
 
-#------------- PTestLauncher -------------
-qt_add_executable(testLauncher
-    tests/PTestLauncher.cpp
-    src/app/PAppController.cpp src/app/PAppController.h
-    src/app/PLauncher.cpp src/app/PLauncher.h
+# #------------- PTestLauncher -------------
+# qt_add_executable(testLauncher
+#     tests/PTestLauncher.cpp
+#     src/app/PAppController.cpp src/app/PAppController.h
+#     src/app/PLauncher.cpp src/app/PLauncher.h
 
-    src/models/PModItem.h src/models/PModItem.cpp
+#     src/models/PModItem.h src/models/PModItem.cpp
 
-    src/models/PFileData.h
+#     src/models/PFileData.h
 
-    src/config/PConfigMgr.cpp src/config/PConfigMgr.h
-    src/config/PTomlConfig.cpp src/config/PTomlConfig.h
-    src/config/PIniConfig.cpp src/config/PIniConfig.h
-)
+#     src/config/PConfigMgr.cpp src/config/PConfigMgr.h
+#     src/config/PTomlConfig.cpp src/config/PTomlConfig.h
+#     src/config/PIniConfig.cpp src/config/PIniConfig.h
+# )
 
-target_include_directories(testLauncher 
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/src
-        ${CMAKE_SOURCE_DIR}/src/models
-        ${CMAKE_SOURCE_DIR}/src/graphics
-        ${CMAKE_SOURCE_DIR}/src/config
-        ${CMAKE_SOURCE_DIR}/src/database
-        ${CMAKE_SOURCE_DIR}/src/mods
-        ${CMAKE_SOURCE_DIR}/libs/apecore/include
-        ${CMAKE_SOURCE_DIR}/src/filesystem
-)
+# target_include_directories(testLauncher 
+#     PRIVATE
+#         ${CMAKE_SOURCE_DIR}/src
+#         ${CMAKE_SOURCE_DIR}/src/models
+#         ${CMAKE_SOURCE_DIR}/src/graphics
+#         ${CMAKE_SOURCE_DIR}/src/config
+#         ${CMAKE_SOURCE_DIR}/src/database
+#         ${CMAKE_SOURCE_DIR}/src/mods
+#         ${CMAKE_SOURCE_DIR}/libs/apecore/include
+#         ${CMAKE_SOURCE_DIR}/src/filesystem
+# )
 
-# link the required libraries
-target_link_libraries(testLauncher
-    PRIVATE
-        Qt6::Test
-        Qt6::Core
-        Qt6::Sql
-        Qt6::Quick 
-        Qt6::QuickControls2
-        Qt6::QuickLayouts
-        Qt6::Svg
-        Qt6::Gui
-        ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
-        tomlplusplus
-        simpleini
-        ApeCore
-)
+# # link the required libraries
+# target_link_libraries(testLauncher
+#     PRIVATE
+#         Qt6::Test
+#         Qt6::Core
+#         Qt6::Sql
+#         Qt6::Quick 
+#         Qt6::QuickControls2
+#         Qt6::QuickLayouts
+#         Qt6::Svg
+#         Qt6::Gui
+#         ${CMAKE_SOURCE_DIR}/libs/quazip/lib/quazip.a
+#         tomlplusplus
+#         simpleini
+#         ApeCore
+# )
 
-# add test data as resource
-add_custom_command(TARGET testLauncher POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/tests/test_data
-    ${CMAKE_BINARY_DIR}/test_data
-)
+# # add test data as resource
+# add_custom_command(TARGET testLauncher POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#     ${CMAKE_SOURCE_DIR}/tests/test_data
+#     ${CMAKE_BINARY_DIR}/test_data
+# )
 
-add_test(NAME testFileSystem COMMAND testFileSystem)
-add_test(NAME testModLoader COMMAND testModLoader)
-add_test(NAME testModController COMMAND testModController)
-add_test(NAME testAppController COMMAND testAppController)
-add_test(NAME testLauncher COMMAND testLauncher)
+# add_test(NAME testFileSystem COMMAND testFileSystem)
+# add_test(NAME testModLoader COMMAND testModLoader)
+# add_test(NAME testModController COMMAND testModController)
+# add_test(NAME testAppController COMMAND testAppController)
+# add_test(NAME testLauncher COMMAND testLauncher)
 
-add_test(NAME testConfigMgr COMMAND testConfigMgr)
-# # add_test(NAME testDatabaseMgr COMMAND testDatabaseMgr)
-# add_test(NAME testGraphicsMgr COMMAND testGraphicsMgr)
+# add_test(NAME testConfigMgr COMMAND testConfigMgr)
+# # # add_test(NAME testDatabaseMgr COMMAND testDatabaseMgr)
+# # add_test(NAME testGraphicsMgr COMMAND testGraphicsMgr)

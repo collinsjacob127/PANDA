@@ -619,9 +619,9 @@ void PModItem::setData(int role, const QVariant &value)
         default:
             qDebug() << "Unknown role: " << role;
     }
-} 
+}
 
-QHash<int, QByteArray> PModItem::initializeRoleNames()
+void PModItem::initializeRoleNames()
 {
     // Mod properties
     roles[ModTitleRole] = "title";
