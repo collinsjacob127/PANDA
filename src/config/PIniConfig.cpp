@@ -222,3 +222,11 @@ QVariant PIniConfig::extractVariant(const QString& query) const {
 
     return QVariant(query); // interpret as string
 }
+
+bool PIniConfig::removeSection(const QString &section) {
+    return true;
+}
+
+bool PIniConfig::getAllSections() {
+    return true;
+}
