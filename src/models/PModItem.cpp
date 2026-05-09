@@ -50,8 +50,8 @@ PModItem::PModItem(
         const QString &title, 
         const QString &description, 
         const QStringList &authors, 
-        const QString &version, 
-        const QString &id, 
+        const QString &version,
+        const QString &id,
         const QString &link,
 
         // Mod flags
@@ -82,7 +82,7 @@ PModItem::PModItem(
         // Instance
         QObject *parent
 )
-: QObject(parent), 
+: QObject(parent),
 
     // Mod properties
     m_title(title),
@@ -619,7 +619,7 @@ void PModItem::setData(int role, const QVariant &value)
         default:
             qDebug() << "Unknown role: " << role;
     }
-} 
+}
 
 void PModItem::initializeRoleNames()
 {
@@ -660,8 +660,46 @@ void PModItem::initializeRoleNames()
     roles[ModIconPathsRole] = "iconpaths";
 }
 
+QHash<int, QByteArray> PModItem::roleNames()
+{
+    QHash<int, QByteArray> roles;
 
-QHash<int, QByteArray> PModItem::roleNames() {
-  return roles;
+    // Mod properties
+    roles[ModTitleRole] = "title";
+    roles[ModAuthorRole] = "authors";
+    roles[ModDescriptionRole] = "description";
+    roles[ModIdRole] = "id";
+    roles[ModVersionRole] = "version";
+    roles[ModLinkRole] = "link";
+
+    // Mod flags
+    roles[ModEnabledRole] = "enabled";
+    roles[ModSelectedRole] = "selected";
+    roles[ModListedRole] = "listed";
+    roles[ModIsCollectionRole] = "isCollection";
+
+    // Categorization properties
+    roles[ModCategoryRole] = "category";
+    roles[ModTagsRole] = "tags";
+
+    // File data properties
+    roles[ModFilenameRole] = "filename";
+    roles[ModCurrentLocationRole] = "currentLocation";
+    roles[ModOriginalLocationRole] = "originalLocation";
+    roles[ModDisabledLocationRole] = "disabledLocation";
+    roles[ModFileSizeRole] = "fileSize";
+    roles[ModFileDateRole] = "fileDate";
+
+    // External properties
+    roles[ModDependencyIdRole] = "depId";
+    roles[ModCollectionIdRole] = "collectionId";
+
+    // Instance
+    roles[ModObjectRole] = "instance"; // return a whole mod object
+
+    // Graphics properties
+    roles[ModIconPathsRole] = "iconpaths";
+
+    return roles;
 }
 

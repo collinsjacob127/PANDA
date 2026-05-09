@@ -60,7 +60,7 @@ public:
         ModIdRole,
         ModVersionRole,
         ModLinkRole,
-        
+
         // Categorization properties
         ModCategoryRole,
         ModTagsRole,
@@ -93,43 +93,43 @@ public:
     explicit PModItem(QObject *parent = nullptr);
     PModItem(
         // Mod properties
-        const QString &title, 
-        const QString &description=QString(), 
-        const QStringList &authors=QString(), 
-        const QString &version=QString(), 
-        const QString &id=QString(), 
-        const QString &link=Qstring(),
+        const QString &title,
+        const QString &description=QString(),
+        const QStringList &authors=QStringList(),
+        const QString &version=QString(),
+        const QString &id=QString(),
+        const QString &link=QString(),
 
         // Mod flags
-        bool enabled=false, 
-        bool selected=false, 
-        bool listed=false, 
+        bool enabled=false,
+        bool selected=false,
+        bool listed=false,
         bool isCollection=false,
 
         // Categorization properties
-        const QStringList &tags=QStringList(), 
-        const QString &category=QString(), 
+        const QStringList &tags=QStringList(),
+        const QString &category=QString(),
 
         // External properties
-        const QString &depId=QString(), 
+        const QString &depId=QString(),
         const QString &collectionId=QString(),
 
         // File data properties
         const QString &filename=QString(),
-        const QString &currentLocation=QString(), 
-        const QString &originalLocation=QString(), 
-        const QString &disabledLocation=QString(), 
+        const QString &currentLocation=QString(),
+        const QString &originalLocation=QString(),
+        const QString &disabledLocation=QString(),
         const QString &fileSize=QString(),
         const QString &fileDate=QString(),
 
         // Graphics properties
-        const QStringList &iconpaths=Qstring(), 
+        const QStringList &iconpaths=QStringList(),
 
         // Instance
         QObject *parent = nullptr
-    );
+        );
     PModItem(QObject *parent, const QSqlQuery &query);
-        
+
     int modIndex() const;
     void setmodIndex(int newModIndex);
 
@@ -258,7 +258,7 @@ private:
     // Categorization properties
     QString m_category;
     QStringList m_tags;
-    
+
     // File data properties
     QString m_current_location;
     QString m_filename;

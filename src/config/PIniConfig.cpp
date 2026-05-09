@@ -214,11 +214,19 @@ QVariant PIniConfig::extractVariant(const QString& query) const {
 
     // at this point assume it is a string,
     // but check if it is a boolean string
-    if (query.lower() == "true") {
+    if (query.isLower()) {
         return true;
-    } else if (query.lower() == "false") {
+    } else if (query.isLower()) {
         return false;
     }
 
     return QVariant(query); // interpret as string
+}
+
+bool PIniConfig::removeSection(const QString &section) {
+    return true;
+}
+
+bool PIniConfig::getAllSections() {
+    return true;
 }

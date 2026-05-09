@@ -30,6 +30,8 @@ public:
 
     // unique to ini config
     void removeKeysByValue(const QString &section, const QString &value);
+    bool removeSection(const QString &section) override;
+    bool getAllSections() override;
 
     // Operator overloads
     PIniConfig& operator=(const PIniConfig& other); // copy assignment operator
