@@ -42,7 +42,7 @@ PModItem::PModItem(QObject *parent)
     // Instance
     m_ui_component = nullptr;
 
-    initializeRoleNames()
+    initializeRoleNames();
 }
 
 PModItem::PModItem(
@@ -122,7 +122,7 @@ PModItem::PModItem(
     m_ui_component = nullptr;
     m_selected = false;
     m_listed = true;
-    initializeRoleNames()
+    initializeRoleNames();
 }
 
 PModItem::PModItem(QObject *parent, const QSqlQuery &query) : QObject(parent)
@@ -161,7 +161,7 @@ PModItem::PModItem(QObject *parent, const QSqlQuery &query) : QObject(parent)
     // Graphics properties
     setIconPaths(query.value("icon_paths").toString().split(", "));
 
-    initializeRoleNames()
+    initializeRoleNames();
 }
 
 // ----------------------------------------------- Mod properties
