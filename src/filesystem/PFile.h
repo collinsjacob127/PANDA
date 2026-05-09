@@ -19,6 +19,27 @@ enum FileType {
     Other
 };
 
+
+/**
+ * @brief Factory to delegate construction of IVirtualFilesystems for PFile::createFilesystem
+ */
+class IVirtualFilesystemFactory {
+public:
+  IVirtualFilesystemFactory() = delete;
+
+  static std::unique_ptr<IVirtualFilesystem> createFilesystem(const QString &path, FileType type) {
+    switch (type) {
+      case FileType::Zip:
+        qDebug() << "Creating PZip filesystem for path:" << path;
+        return std::make_unique<PZip>(path);
+      default:
+        qDebug() << "Creating PFileSystem filesystem for path:" << path;
+        return std::make_unique<PFileSystem>();
+    }
+  }
+};
+
+
 class PFile : public QObject {
     Q_OBJECT
 public:
