@@ -51,8 +51,8 @@ PModItem::PModItem(
         const QString &description, 
         const QStringList &authors, 
         const QString &version, 
-        const QString &id, 
-        const QString &link,
+        const QString &id,
+        const QStringList &link,
 
         // Mod flags
         bool enabled, 
