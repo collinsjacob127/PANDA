@@ -487,14 +487,6 @@ void PModItem::setCollectionId(const QString &newCollectionId)
 
 // ------------------------------------------------ Instance
 
-void PModItem::setUIComponent(QObject* item)
-{
-    if (m_ui_component != item) {
-        m_ui_component = item;
-        emit qmlItemChanged();
-    }
-}
-
 QVariant PModItem::getData(int role) const
 {
     switch ((Role) role)
