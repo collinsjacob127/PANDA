@@ -184,10 +184,6 @@ public:
     QString collectionId() const;
     void setCollectionId(const QString &collectionId);
 
-    // Instance
-    QObject* uiComponent() const { return m_ui_component; }
-    void setUIComponent(QObject* item);
-
     // Model implementations
     QVariant getData(int role) const;
     static QHash<int, QByteArray> roleNames();
