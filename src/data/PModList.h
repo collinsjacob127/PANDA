@@ -6,12 +6,12 @@
 #include <QVector>
 #include <QSharedPointer>
 
-class PModListModel : public PAbstractListModel
+class PModList : public PAbstractListModel
 {
     Q_OBJECT
 
 public:
-    explicit PModListModel(QObject* parent = nullptr)
+    explicit PModList(QObject* parent = nullptr)
         : PAbstractListModel(parent)
     {
     }
