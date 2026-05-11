@@ -8,10 +8,12 @@
 #include "PIconData.h"
 #include <QSettings>
 
-class PEntityType {
+class PEntityType
+{
 public:
     // Supported types
-    enum Type {
+    enum Type
+    {
         Animal,
         Scenery,
         Building,
@@ -32,7 +34,8 @@ public:
         Unknown
     };
 
-    enum MemberTypes {
+    enum MemberTypes
+    {
         Entity,
         UnitMember,
         ZTUnit,
@@ -63,7 +66,8 @@ public:
         ShowToys,
     };
 
-    enum ClassType {
+    enum ClassType
+    {
         KeeperClass,
         Maint,
         Tour,
@@ -73,20 +77,18 @@ public:
     };
 
     QString id;
+    Type type = Type::Unknown;
     QList<PIconData> icons;
     QString ztdPath;
     QMap<QString, QString> characteristics;
     QMap<QString, QString> iconAniPaths;
 
-    void load(QSettings& settings, const QString& path);
-    static PEntityType::Type getType(const QString& path);
+    PEntityType() = default;
 
-    void loadAniPaths(QStringList& iconPaths);
-    void loadIconPath(QString& iconPath);
-    PEntityType();
+    static QString determineViewFromPath(const QString &aniPath);
 
-    // helper functions
-    static QString determineViewFromPath(const QString& aniPath);
+    void loadAniPaths(QStringList &iconPaths);
+    void loadIconPath(QString &iconPath);
 };
 
 #endif // PENTITYTYPE_H
