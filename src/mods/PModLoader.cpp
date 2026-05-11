@@ -147,27 +147,20 @@ void PModLoader::loadModsFromFile(const QStringList &ztdList)
 // Determine the category of the mod based on the file extension and path
 // Possible categories are: Building, Scenery, Animals, misc, Unknown
 QString PModLoader::determineCategory(const QSharedPointer<PFileData> &fileData) {
+    if (!fileData) { return "Unknown"; }
+
     if (fileData->data.size() == 0) {
         return "Unknown";
     }
 
+    // Extract the file extension from the fileData
     QString ext = fileData->ext;
 
-    if (ext == "ucb") {
-            return "Building";
-    } else if (ext == "ucs") {
-            return "Scenery";
-    } else if (ext == "uca") {
-            return "Animals";
-    } else if (ext == "ai") {
-        QStringList pathParts = fileData->path.split("/");
-        // category is always the first part of the path
-        QString category = pathParts[0];
-        // return proper case for category
-        return category.toUpper().left(1) + category.mid(1).toLower();
-    } else {
-            return "Unknown";
-    }
+    // Instantiate the strategy for this file data
+    auto strategy = ModTypeStrategyFactory::create(ext);
+
+    // Return the strategy using it's corresponding factory
+    return strategy->determineCategory(fileData);
 }
 
 QVector<QSharedPointer<PModItem>> PModLoader::buildCollectionMods(const QVector<QSharedPointer<PFileData>> &entryPoints, const QSharedPointer<PModItem> &mod, const QSharedPointer<PFile> &ztd) {
