@@ -22,14 +22,6 @@ Item {
     anchors.fill: parent
     signal selectedMod(var mod)
 
-    Component.onCompleted: {
-        if (modItem.mod) {
-            modItem.mod.uiComponent = modItem            
-        } else {
-            console.log("MODEL OBJECT IS NULL")
-        }
-    }
-
     Pane {
         id: modPane
         anchors.fill: parent
@@ -201,6 +193,7 @@ Item {
                     color: modItem.mod.enabled ? modPane.determineBackgroundColor("#6B8760") : modPane.determineBackgroundColor(modItem.disabledColor)
                     Layout.preferredWidth: 64
                     Layout.fillHeight: true
+                    opacity: enabled ? 1.0 : 0.5
                     
                     Image {
                         id: modIcon

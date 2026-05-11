@@ -47,10 +47,6 @@ class PModItem : public QObject
     Q_PROPERTY(QString dependencyId READ dependencyId WRITE setDependencyId NOTIFY dependencyIdChanged)
     Q_PROPERTY(QString collectionId READ collectionId WRITE setCollectionId NOTIFY collectionIdChanged)
 
-    // Instance
-    Q_PROPERTY(QObject* uiComponent READ uiComponent WRITE setUIComponent NOTIFY qmlItemChanged)
-
-
 public:
     enum Role {
         // Mod properties
@@ -188,10 +184,6 @@ public:
     QString collectionId() const;
     void setCollectionId(const QString &collectionId);
 
-    // Instance
-    QObject* uiComponent() const { return m_ui_component; }
-    void setUIComponent(QObject* item);
-
     // Model implementations
     QVariant getData(int role) const;
     static QHash<int, QByteArray> roleNames();
@@ -273,9 +265,6 @@ private:
     // External properties
     QString m_dependency_id;
     QString m_collection_id;
-
-    // Instance
-    QObject* m_ui_component = nullptr;
 };
 
 #endif // PMODITEM_H

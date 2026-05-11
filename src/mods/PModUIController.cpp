@@ -248,11 +248,7 @@ void PModUIController::updateOpacity(int index, bool enabled) {
         return;
     }
 
-    if (!mod->uiComponent()) {
-        qDebug() << "Mod UI component is null, cannot update opacity.";
-        return;
-    }
-    mod->uiComponent()->setProperty("opacity", enabled ? 1.0 : 0.9);
+    mod->setEnabled(enabled);
 }
 
 // --------------- Filter and Search ------------------

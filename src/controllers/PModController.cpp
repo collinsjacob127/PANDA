@@ -143,10 +143,6 @@ bool PModController::setModEnabled(QSharedPointer<PModItem> mod, bool enabled)
     db.updateMod(mod->id(), "enabled", enabled ? "1" : "0");
     db.closeDatabase();
 
-    // qml stuff
-    if (QObject* component = mod->uiComponent()) {
-        component->setProperty("opacity", enabled ? 1.0 : 0.5);
-    }
     mod->setEnabled(enabled);
     mod->setLocation(targetLocation);
 

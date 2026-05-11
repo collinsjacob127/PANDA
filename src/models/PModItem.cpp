@@ -39,9 +39,6 @@ PModItem::PModItem(QObject *parent)
     m_dependency_id = "";
     m_collection_id = "";
 
-    // Instance
-    m_ui_component = nullptr;
-
     initializeRoleNames();
 }
 
@@ -115,11 +112,9 @@ PModItem::PModItem(
 
     // External properties
     m_dependency_id(depId),
-    m_collection_id(collectionId),
-    m_ui_component(nullptr)
+    m_collection_id(collectionId)
 {
     m_index = 0;
-    m_ui_component = nullptr;
     m_selected = false;
     m_listed = true;
     initializeRoleNames();
@@ -486,14 +481,6 @@ void PModItem::setCollectionId(const QString &newCollectionId)
 }
 
 // ------------------------------------------------ Instance
-
-void PModItem::setUIComponent(QObject* item)
-{
-    if (m_ui_component != item) {
-        m_ui_component = item;
-        emit qmlItemChanged();
-    }
-}
 
 QVariant PModItem::getData(int role) const
 {
