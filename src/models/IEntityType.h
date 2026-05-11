@@ -4,6 +4,8 @@
 #include <QSettings>
 #include <QString>
 
+class PEntityType;
+
 class IEntityType {
 public:
     virtual bool load(PEntityType &entity) = 0;
