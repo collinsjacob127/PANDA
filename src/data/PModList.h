@@ -24,14 +24,14 @@ public:
 protected:
     int itemCount() const override
     {
-        return m_items.size();
+        return m_list.size();
     }
 
     QVariant dataForRow(
         int row,
         int role) const override
     {
-        return m_items[row]->getData(role);
+        return m_list[row]->getData(role);
     }
 
     bool setDataForRow(
@@ -39,33 +39,33 @@ protected:
         const QVariant& value,
         int role) override
     {
-        m_items[row]->setData(role, value);
+        m_list[row]->setData(role, value);
         return true;
     }
 
 public:
     void addItem(QSharedPointer<PModItem> item)
     {
-        beginInsertRows({}, m_items.size(), m_items.size());
-        m_items.append(item);
+        beginInsertRows({}, m_list.size(), m_list.size());
+        m_list.append(item);
         endInsertRows();
     }
 
     void removeItem(int row)
     {
-        if (row < 0 || row >= m_items.size()) {
+        if (row < 0 || row >= m_list.size()) {
             return;
         }
 
         beginRemoveRows({}, row, row);
-        m_items.removeAt(row);
+        m_list.removeAt(row);
         endRemoveRows();
     }
 
     void clear()
     {
         beginResetModel();
-        m_items.clear();
+        m_list.clear();
         endResetModel();
     }
 
@@ -109,11 +109,11 @@ public:
 
     QSharedPointer<PModItem> itemAt(int row) const
     {
-        if (row < 0 || row >= m_items.size()) {
+        if (row < 0 || row >= m_list.size()) {
             return {};
         }
 
-        return m_items[row];
+        return m_list[row];
     }
 
     int indexOf(QSharedPointer<PModItem> item) const
@@ -122,5 +122,5 @@ public:
     }
 
 private:
-    QVector<QSharedPointer<PModItem>> m_items;
+    QVector<QSharedPointer<PModItem>> m_list;
 };
