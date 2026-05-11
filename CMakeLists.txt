@@ -55,7 +55,7 @@ qt_add_executable(appPandaLdr
     src/database/PDatabase.cpp src/database/PDatabase.h
     src/database/PModQueries.h
     # data
-    src/data/PDataList.h
+    src/data/PModList.h
     )
 
 add_subdirectory(libs/apecore)

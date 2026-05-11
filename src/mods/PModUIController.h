@@ -15,7 +15,7 @@
 #include "PModItem.h"
 #include "PDatabase.h"
 #include "PAppController.h"
-#include "PDataList.h"
+#include "PModList.h"
 #include "PModLoader.h"
 #include "PModDataAccess.h"
 
