@@ -50,6 +50,7 @@ qt_add_executable(appPandaLdr
     # mods
     src/mods/PModUIController.cpp src/mods/PModUIController.h
     src/mods/PModDataAccess.cpp src/mods/PModDataAccess.h
+    src/mods/PModTypeStrategy.h
     src/mods/PModLoader.cpp src/mods/PModLoader.h
     # database
     src/database/PDatabase.cpp src/database/PDatabase.h
